@@ -8,7 +8,10 @@ package dao;
 import banco.ConnectionFactory;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.Cliente;
@@ -17,14 +20,14 @@ import model.Cliente;
  *
  * @author 771400163
  */
-public class ClienteDAOBD implements ClienteDAO{
+public class ClienteDAOBD implements ClienteDAO {
 
     private Connection conexao;
     private PreparedStatement comando;
-    
+
     @Override
     public void adicionar(Cliente c) {
-         try {
+        try {
 
             String sql = "insert into clientes (matricula, nome, telefone) VALUES(?,?,?)";
 
@@ -40,6 +43,7 @@ public class ClienteDAOBD implements ClienteDAO{
             Logger.getLogger(ClienteDAOBD.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+
     public void conectar(String sql) {
 
         try {
@@ -64,5 +68,31 @@ public class ClienteDAOBD implements ClienteDAO{
             Logger.getLogger(ClienteDAOBD.class.getName()).log(Level.SEVERE, null, ex);
         }
 
+    }
+
+    @Override
+    public List<Cliente> listarCliente() {
+        List<Cliente> listaClientes = new ArrayList<>();
+        try {
+            String sql = "select * from clientes";
+            conectar(sql);
+            ResultSet resultado;
+            resultado = comando.executeQuery();
+            
+            while (resultado.next()) {
+                System.out.println("-------------");
+                int matricula = resultado.getInt("matricula");
+                String nome = resultado.getString("nome");
+                String telefone = resultado.getString("telefone");
+                
+                Cliente c= new Cliente(matricula, nome, telefone);
+                listaClientes.add(c);
+                
+            }//fim while
+            fechar();
+        } catch (SQLException ex) {
+            Logger.getLogger(ClienteDAOBD.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return listaClientes;
     }
 }

@@ -6,6 +6,7 @@
 package sevicos;
 
 import dao.ClienteDAOBD;
+import java.util.List;
 import model.Cliente;
 
 /**
@@ -15,5 +16,8 @@ import model.Cliente;
 public class ClienteServicos {
     public void addCliente (Cliente c){
         new ClienteDAOBD().adicionar(c);
+    }
+    public List<Cliente> listarClientes(){
+        return new ClienteDAOBD().listarCliente();
     }
 }

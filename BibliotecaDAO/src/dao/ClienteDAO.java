@@ -5,6 +5,7 @@
  */
 package dao;
 
+import java.util.List;
 import model.Cliente;
 
 /**
@@ -13,5 +14,6 @@ import model.Cliente;
  */
 public interface ClienteDAO {
     public void adicionar(Cliente c);
+    public List<Cliente> listarCliente();
     
 }

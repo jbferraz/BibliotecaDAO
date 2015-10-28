@@ -11,7 +11,7 @@ public class UICliente {
     private ClienteServicos clienteS;
 
     public UICliente() {
-        clienteS=new ClienteServicos();
+        clienteS = new ClienteServicos();
     }
 
     public void executar() {
@@ -24,8 +24,14 @@ public class UICliente {
                     case UIClienteMenu.OP_CADASTRAR:
                         cadastrarCliente();
                         break;
+                    case UIClienteMenu.OP_ATUALIZAR:
+                        
+                        break; 
+                    case UIClienteMenu.OP_EXCLUIR:
+                        
+                        break; 
                     case UIClienteMenu.OP_LISTAR:
-                        //mostrarClientes();
+                        mostrarClientes();
                         break;
                     case UIClienteMenu.OP_VOLTAR:
                         System.out.println("Retornando ao menu principal..");
@@ -47,20 +53,16 @@ public class UICliente {
         int matricula = Console.scanInt("Matricula: ");
         String nome = Console.scanString("Nome: ");
         String telefone = Console.scanString("Telefone: ");
-        
+
         clienteS.addCliente(new Cliente(matricula, nome, telefone));
-        }
     }
 
-//   public void mostrarClientes() {
-//        System.out.println("-----------------------------\n");
-//        System.out.println(String.format("%-40s", "NOME") + "\t"
-//                + String.format("%-20s", "|RG") + "\t"
-//                + String.format("%-20s", "|TELEFONE"));
-//        for (Cliente Cliente : listaClientes.getListaClientes()) {
-//            System.out.println(String.format("%-40s", Cliente.getNome()) + "\t"
-//                    + String.format("%-20s", "|" + Cliente.getRG()) + "\t"
-//                    + String.format("%-20s", "|" + Cliente.getTelefone()));
-//        }
-//    }
-
+    public void mostrarClientes() {
+        for (Cliente c: clienteS.listarClientes()){
+            System.out.println("----------");
+            System.out.println("Matricula: "+c.getMatricula());
+            System.out.println("Nome: "+c.getNome());
+            System.out.println("Telefone: "+c.getTelefone());
+        }
+    }
+}
