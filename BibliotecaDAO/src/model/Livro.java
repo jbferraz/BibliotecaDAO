@@ -13,6 +13,9 @@ public class Livro {
     private String ISBN, nome, autores, editora;
     private int ano;
 
+    public Livro() {
+    }
+
     public Livro(String ISBN, String nome, String autores, String editora, int ano) {
         this.ISBN = ISBN;
         this.nome = nome;

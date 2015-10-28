@@ -7,12 +7,10 @@ import view.menu.UIMenuPrincipal;
 
 public class UIPrincipal {
 
-    private RepositorioClientes listaClientes;
-    private RepositorioLivros listaLivros;
+   
 
     public UIPrincipal() {
-        listaClientes = new RepositorioClientes();
-        listaLivros = new RepositorioLivros();
+   
     }
 
     public void executar() {
@@ -23,10 +21,11 @@ public class UIPrincipal {
                 opcao = Console.scanInt("Digite sua opção:");
                 switch (opcao) {
                     case UIMenuPrincipal.OP_Menu_CRUDLivros:
-                        //new UICliente(listaLivros).executar();
+                        new UILivro().executar();
                         break;
                     case UIMenuPrincipal.OP_Menu_CRUDClientes:
-                        new UICliente(listaClientes).executar();
+                        new UICliente().executar();
+                        //new UICliente(listaClientes).executar();
                         break;
                     case UIMenuPrincipal.OP_Menu_RetLivros:
                         //new UIvoo(listaAvioes, listaVoos).executar();

@@ -1,17 +1,17 @@
 package view;
 
-import model.Cliente;
-import repositorio.RepositorioClientes;
 import util.Console;
 import view.menu.UIClienteMenu;
 import java.util.InputMismatchException;
+import model.Cliente;
+import sevicos.ClienteServicos;
 
 public class UICliente {
 
-    private RepositorioClientes listaClientes;
+    private ClienteServicos clienteS;
 
-    public UICliente(RepositorioClientes listaClientes) {
-        this.listaClientes = listaClientes;
+    public UICliente() {
+        clienteS=new ClienteServicos();
     }
 
     public void executar() {
@@ -45,27 +45,10 @@ public class UICliente {
 
     public void cadastrarCliente() {
         int matricula = Console.scanInt("Matricula: ");
-        if (listaClientes.existeCliente(matricula)) {
-            System.out.println("\nRG já existente no cadastro");
-        } //else if (matricula.replace(" ", "").isEmpty() /*testando se é vazio*/) {
-//            System.out.println("\nErro: RG VAZIO");            
-//        } else if (matricula.matches("\\d{10,10}")) {
-//            String nome = Console.scanString("Escreva seu nome completo: ");
-//            if (nome.matches("\\s*")) {//testar com \s para ver se é vazio
-//                System.out.println(" \nErro: NOME VAZIO");                
-//            } else if (nome.matches("[A-Za-z]+(\\s[A-Za-z]+)*")) {
-//                String telefone = Console.scanString("Telefone para Contato: (xxxx-xxxx 4 números separado por hífem)");
-//                if (!telefone.matches("\\d{4,4}-\\d{4,4}")) {
-//                    System.out.println("\nErro: Telefone digitado diferente do formato indicado!!!");                    
-//                } else {
-//                    listaClientes.addClientes(new Cliente(nome, rg, telefone));
-//                    System.out.println("\nCliente " + nome + " \ncadastrado com sucesso!\n");
-//                }
-//            }else {
-//                System.out.println("\nErro: O nome não pode conter números, caracteres especiais, ou começa em espaço ou ter mais de um espaço");              
-//            }
-//        } else {
-//            System.out.println("\nErro:O RG não pode conter letras, espaços e no máximo 10 dígitos");            
+        String nome = Console.scanString("Nome: ");
+        String telefone = Console.scanString("Telefone: ");
+        
+        clienteS.addCliente(new Cliente(matricula, nome, telefone));
         }
     }
 
