@@ -3,7 +3,7 @@ package view;
 import model.Cliente;
 import repositorio.RepositorioClientes;
 import util.Console;
-import view.UIClienteMenu;
+import view.menu.UIClienteMenu;
 import java.util.InputMismatchException;
 
 public class UICliente {

@@ -3,7 +3,7 @@ package view;
 import repositorio.RepositorioClientes;
 import repositorio.RepositorioLivros;
 import util.Console;
-import view.UIMenuPrincipal;
+import view.menu.UIMenuPrincipal;
 
 public class UIPrincipal {
 

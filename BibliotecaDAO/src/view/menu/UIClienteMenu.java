@@ -1,5 +1,5 @@
 
-package view;
+package view.menu;
 
 public class UIClienteMenu {
     public static final int OP_CADASTRAR = 1;
