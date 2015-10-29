@@ -20,4 +20,7 @@ public class ClienteServicos {
     public List<Cliente> listarClientes(){
         return new ClienteDAOBD().listarCliente();
     }
+    public void atualizarCliente(Cliente c){
+        new ClienteDAOBD().atualizarCliente(c);
+    }
 }

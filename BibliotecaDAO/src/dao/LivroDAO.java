@@ -5,6 +5,7 @@
  */
 package dao;
 
+import java.util.List;
 import model.Livro;
 
 /**
@@ -13,4 +14,6 @@ import model.Livro;
  */
 public interface LivroDAO {
     public void adicionar(Livro l);
+    public List<Livro> listarLivros();
+    public void atualizarLivro(Livro l);
 }

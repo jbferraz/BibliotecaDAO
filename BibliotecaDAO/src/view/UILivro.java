@@ -34,8 +34,14 @@ public class UILivro {
                     case UILivroMenu.OP_CADASTRAR:
                         cadastrarLivro();
                         break;
-                    case UILivroMenu.OP_LISTAR:
+                    case UILivroMenu.OP_ATUALIZAR:
+                        atualizaLivro();
+                        break;    
+                    case UILivroMenu.OP_EXCLUIR:
                         //mostrarClientes();
+                        break;
+                    case UILivroMenu.OP_LISTAR:
+                        mostrarLivros();
                         break;
                     case UILivroMenu.OP_VOLTAR:
                         System.out.println("Retornando ao menu principal..");
@@ -59,9 +65,30 @@ public class UILivro {
         String autores = Console.scanString("Autores: ");
         String editora = Console.scanString("Editora: ");
         int ano = Console.scanInt("Ano: ");
-        
         livroS.addLivro(new Livro(ISBN, nome, autores, editora, ano));
+    }
 
+    private void mostrarLivros() {
+        for (Livro l:livroS.listarLivros()){
+            System.out.println("----------");
+            System.out.println("ISBN: "+l.getISBN());
+            System.out.println("Titulo: "+l.getNome());
+            System.out.println("Autores: "+l.getAutores());
+            System.out.println("Editora: "+l.getEditora());
+            System.out.println("Ano lançamento: "+l.getAno());
+        }
+    }
+
+    private void atualizaLivro() {
+        mostrarLivros();
+        System.out.println("------");
+        System.out.println("Informe ISBN e dados a serem atualizados:");
+        String ISBN = Console.scanString("ISBN: ");
+        String nome = Console.scanString("Nome: ");
+        String autores = Console.scanString("Autores: ");
+        String editora = Console.scanString("Editora: ");
+        int ano = Console.scanInt("Ano: ");
+        livroS.addLivro(new Livro(ISBN, nome, autores, editora, ano));
     }
 
 }

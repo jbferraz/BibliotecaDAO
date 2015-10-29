@@ -25,7 +25,7 @@ public class UICliente {
                         cadastrarCliente();
                         break;
                     case UIClienteMenu.OP_ATUALIZAR:
-                        
+                        atualizarCliente();
                         break; 
                     case UIClienteMenu.OP_EXCLUIR:
                         
@@ -53,7 +53,6 @@ public class UICliente {
         int matricula = Console.scanInt("Matricula: ");
         String nome = Console.scanString("Nome: ");
         String telefone = Console.scanString("Telefone: ");
-
         clienteS.addCliente(new Cliente(matricula, nome, telefone));
     }
 
@@ -64,5 +63,15 @@ public class UICliente {
             System.out.println("Nome: "+c.getNome());
             System.out.println("Telefone: "+c.getTelefone());
         }
+    }
+
+    private void atualizarCliente() {
+        mostrarClientes();
+        System.out.println("------");
+        System.out.println("Informe matricula e dados a serem atualizados:");
+        int matricula = Console.scanInt("Matricula: ");
+        String nome = Console.scanString("Nome: ");
+        String telefone = Console.scanString("Telefone: ");
+        clienteS.atualizarCliente(new Cliente(matricula, nome, telefone));
     }
 }

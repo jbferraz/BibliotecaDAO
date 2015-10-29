@@ -28,14 +28,55 @@ public class ClienteDAOBD implements ClienteDAO {
     @Override
     public void adicionar(Cliente c) {
         try {
-
             String sql = "insert into clientes (matricula, nome, telefone) VALUES(?,?,?)";
-
             conectar(sql);
             comando.setInt(1, c.getMatricula());
             comando.setString(2, c.getNome());
             comando.setString(3, c.getTelefone());
 
+            comando.executeUpdate();
+
+            fechar();
+        } catch (SQLException ex) {
+            Logger.getLogger(ClienteDAOBD.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    @Override
+    public List<Cliente> listarCliente() {
+        List<Cliente> listaClientes = new ArrayList<>();
+        try {
+            String sql = "select * from clientes";
+            conectar(sql);
+            ResultSet resultado;
+            resultado = comando.executeQuery();
+            
+            while (resultado.next()) {
+                System.out.println("-------------");
+                int matricula = resultado.getInt("matricula");
+                String nome = resultado.getString("nome");
+                String telefone = resultado.getString("telefone");
+                
+                Cliente c= new Cliente(matricula, nome, telefone);
+                listaClientes.add(c);
+                
+            }//fim while
+            fechar();
+        } catch (SQLException ex) {
+            Logger.getLogger(ClienteDAOBD.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return listaClientes;
+    }
+
+    @Override
+    public void atualizarCliente(Cliente c) {
+        try {
+            String sql = "update clientes set nome=?, telefone=? where matricula=?";
+            conectar(sql);
+            comando.setInt(3, c.getMatricula());
+            comando.setString(1, c.getNome());
+            comando.setString(2, c.getTelefone());
+            
             comando.executeUpdate();
 
             fechar();
@@ -68,31 +109,5 @@ public class ClienteDAOBD implements ClienteDAO {
             Logger.getLogger(ClienteDAOBD.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-    }
-
-    @Override
-    public List<Cliente> listarCliente() {
-        List<Cliente> listaClientes = new ArrayList<>();
-        try {
-            String sql = "select * from clientes";
-            conectar(sql);
-            ResultSet resultado;
-            resultado = comando.executeQuery();
-            
-            while (resultado.next()) {
-                System.out.println("-------------");
-                int matricula = resultado.getInt("matricula");
-                String nome = resultado.getString("nome");
-                String telefone = resultado.getString("telefone");
-                
-                Cliente c= new Cliente(matricula, nome, telefone);
-                listaClientes.add(c);
-                
-            }//fim while
-            fechar();
-        } catch (SQLException ex) {
-            Logger.getLogger(ClienteDAOBD.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return listaClientes;
     }
 }

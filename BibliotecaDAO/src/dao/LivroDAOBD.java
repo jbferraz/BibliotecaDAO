@@ -8,7 +8,10 @@ package dao;
 import banco.ConnectionFactory;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.Livro;
@@ -42,6 +45,54 @@ public class LivroDAOBD implements LivroDAO{
             Logger.getLogger(LivroDAOBD.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+
+    @Override
+    public List<Livro> listarLivros() {
+        List<Livro> listaLivros = new ArrayList<>();
+        try {
+            String sql = "select * from livros";
+            conectar(sql);
+            ResultSet resultado;
+            resultado = comando.executeQuery();
+            
+            while (resultado.next()) {
+                int id = resultado.getInt("id");
+                String isbn = resultado.getString("isbn");
+                String nome = resultado.getString("nome");
+                String autores = resultado.getString("autores");
+                String editora = resultado.getString("editora");
+                int ano = resultado.getInt("ano");
+                
+                System.out.println(id);
+                Livro l= new Livro(isbn, nome, autores, editora, ano);
+                listaLivros.add(l);
+                
+            }//fim while
+            fechar();
+        } catch (SQLException ex) {
+            Logger.getLogger(LivroDAOBD.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return listaLivros;
+    }
+
+    @Override
+    public void atualizarLivro(Livro l) {
+        try {
+            String sql = "update livros set nome=?, autores=?, editora=?, ano=? where isbn=?";
+            conectar(sql);
+            comando.setString(5, l.getISBN());
+            comando.setString(1, l.getNome());
+            comando.setString(2, l.getAutores());
+            comando.setString(3, l.getEditora());
+            comando.setInt(4, l.getAno());
+            
+            comando.executeUpdate();
+
+            fechar();
+        } catch (SQLException ex) {
+            Logger.getLogger(LivroDAOBD.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     
     public void conectar(String sql) {
 
@@ -68,5 +119,6 @@ public class LivroDAOBD implements LivroDAO{
         }
 
     }
+
     
 }

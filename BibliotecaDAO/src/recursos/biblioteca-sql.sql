@@ -1,4 +1,4 @@
-﻿create table clientes (
+create table clientes (
 	matricula int primary key,
 	nome varchar (60),
 	telefone varchar(11));
@@ -14,3 +14,4 @@ create table livros (
 select * from livros
 
 select * from clientes 
+

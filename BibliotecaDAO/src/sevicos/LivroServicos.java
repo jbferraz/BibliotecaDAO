@@ -6,6 +6,7 @@
 package sevicos;
 
 import dao.LivroDAOBD;
+import java.util.List;
 import model.Livro;
 
 /**
@@ -15,5 +16,11 @@ import model.Livro;
 public class LivroServicos {
     public void addLivro(Livro l){
         new LivroDAOBD().adicionar(l);
+    }
+    public List<Livro> listarLivros(){
+        return new LivroDAOBD().listarLivros();
+    }
+    public void atualizarLivro(Livro l){
+        new LivroDAOBD().atualizarLivro(l);
     }
 }
