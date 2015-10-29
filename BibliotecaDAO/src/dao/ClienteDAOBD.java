@@ -41,7 +41,7 @@ public class ClienteDAOBD implements ClienteDAO {
             Logger.getLogger(ClienteDAOBD.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     @Override
     public List<Cliente> listarCliente() {
         List<Cliente> listaClientes = new ArrayList<>();
@@ -50,16 +50,15 @@ public class ClienteDAOBD implements ClienteDAO {
             conectar(sql);
             ResultSet resultado;
             resultado = comando.executeQuery();
-            
+
             while (resultado.next()) {
-                System.out.println("-------------");
                 int matricula = resultado.getInt("matricula");
                 String nome = resultado.getString("nome");
                 String telefone = resultado.getString("telefone");
-                
-                Cliente c= new Cliente(matricula, nome, telefone);
+
+                Cliente c = new Cliente(matricula, nome, telefone);
                 listaClientes.add(c);
-                
+
             }//fim while
             fechar();
         } catch (SQLException ex) {
@@ -76,13 +75,34 @@ public class ClienteDAOBD implements ClienteDAO {
             comando.setInt(3, c.getMatricula());
             comando.setString(1, c.getNome());
             comando.setString(2, c.getTelefone());
-            
+
             comando.executeUpdate();
 
             fechar();
         } catch (SQLException ex) {
             Logger.getLogger(ClienteDAOBD.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    @Override
+    public Cliente procurarPorMatricula(int mat) {
+        try {
+            String sql = "select * from clientes where matricula=?";
+            conectar(sql);
+            comando.setInt(1, mat);
+            ResultSet resultado = comando.executeQuery();
+            if (resultado.next()){
+                String nome=resultado.getString("nome");
+                String telefone=resultado.getString("telefone");
+                
+                Cliente c=new Cliente(mat, nome, telefone);
+                return c;
+            }
+            fechar();
+        } catch (SQLException ex) {
+            Logger.getLogger(ClienteDAOBD.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
     }
 
     public void conectar(String sql) {
@@ -110,4 +130,5 @@ public class ClienteDAOBD implements ClienteDAO {
         }
 
     }
+
 }

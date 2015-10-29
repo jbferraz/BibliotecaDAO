@@ -7,7 +7,7 @@ package view.menu;
 
 /**
  *
- * @author kako__000
+ * @author Jair Ferraz
  */
 public class UIMenuPrincipal {
     public static final int OP_Menu_CRUDLivros = 1;

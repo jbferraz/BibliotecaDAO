@@ -16,4 +16,5 @@ public interface ClienteDAO {
     public void adicionar(Cliente c);
     public List<Cliente> listarCliente();
     public void atualizarCliente(Cliente c);
+    public Cliente procurarPorMatricula(int mat);
 }

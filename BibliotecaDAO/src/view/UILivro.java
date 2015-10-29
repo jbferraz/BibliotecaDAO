@@ -35,7 +35,7 @@ public class UILivro {
                         cadastrarLivro();
                         break;
                     case UILivroMenu.OP_ATUALIZAR:
-                        atualizaLivro();
+                        atualizarLivro();
                         break;    
                     case UILivroMenu.OP_EXCLUIR:
                         //mostrarClientes();
@@ -79,7 +79,7 @@ public class UILivro {
         }
     }
 
-    private void atualizaLivro() {
+    private void atualizarLivro() {
         mostrarLivros();
         System.out.println("------");
         System.out.println("Informe ISBN e dados a serem atualizados:");
@@ -88,7 +88,7 @@ public class UILivro {
         String autores = Console.scanString("Autores: ");
         String editora = Console.scanString("Editora: ");
         int ano = Console.scanInt("Ano: ");
-        livroS.addLivro(new Livro(ISBN, nome, autores, editora, ano));
+        livroS.atualizarLivro(new Livro(ISBN, nome, autores, editora, ano));
     }
 
 }

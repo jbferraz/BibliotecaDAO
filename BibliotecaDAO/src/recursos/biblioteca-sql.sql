@@ -5,7 +5,7 @@ create table clientes (
 
 create table livros (
 	id serial primary key,
-	isbn varchar(10),
+	isbn varchar(10) unique,
 	nome varchar(60),
 	autores varchar(60),
 	editora varchar(60),

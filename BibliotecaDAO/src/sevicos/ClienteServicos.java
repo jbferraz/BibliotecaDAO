@@ -23,4 +23,7 @@ public class ClienteServicos {
     public void atualizarCliente(Cliente c){
         new ClienteDAOBD().atualizarCliente(c);
     }
+    public Cliente procurarPorMatricula(int mat) {
+        return new ClienteDAOBD().procurarPorMatricula(mat);
+    }
 }

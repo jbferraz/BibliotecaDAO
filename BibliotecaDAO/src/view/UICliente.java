@@ -26,10 +26,10 @@ public class UICliente {
                         break;
                     case UIClienteMenu.OP_ATUALIZAR:
                         atualizarCliente();
-                        break; 
+                        break;
                     case UIClienteMenu.OP_EXCLUIR:
-                        
-                        break; 
+
+                        break;
                     case UIClienteMenu.OP_LISTAR:
                         mostrarClientes();
                         break;
@@ -57,21 +57,24 @@ public class UICliente {
     }
 
     public void mostrarClientes() {
-        for (Cliente c: clienteS.listarClientes()){
+        for (Cliente c : clienteS.listarClientes()) {
             System.out.println("----------");
-            System.out.println("Matricula: "+c.getMatricula());
-            System.out.println("Nome: "+c.getNome());
-            System.out.println("Telefone: "+c.getTelefone());
+            System.out.println("Matricula: " + c.getMatricula());
+            System.out.println("Nome: " + c.getNome());
+            System.out.println("Telefone: " + c.getTelefone());
         }
     }
 
     private void atualizarCliente() {
-        mostrarClientes();
-        System.out.println("------");
-        System.out.println("Informe matricula e dados a serem atualizados:");
-        int matricula = Console.scanInt("Matricula: ");
-        String nome = Console.scanString("Nome: ");
-        String telefone = Console.scanString("Telefone: ");
-        clienteS.atualizarCliente(new Cliente(matricula, nome, telefone));
+        int mat = Console.scanInt("informe a matricula: ");
+        if (clienteS.procurarPorMatricula(mat) == null) {
+            System.out.println("Não da dados com essa matricula");
+        } else {
+            System.out.println("----------");
+            System.out.println("Informe matricula e dados a serem atualizados:");
+            String nome = Console.scanString("Nome: ");
+            String telefone = Console.scanString("Telefone: ");
+            clienteS.atualizarCliente(new Cliente(mat, nome, telefone));
+        }
     }
 }
