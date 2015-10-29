@@ -23,4 +23,7 @@ public class LivroServicos {
     public void atualizarLivro(Livro l){
         new LivroDAOBD().atualizarLivro(l);
     }
+    public Livro procurarPorISBN(String isbn){
+        return new LivroDAOBD().procurarPorISBN(isbn);
+    }
 }

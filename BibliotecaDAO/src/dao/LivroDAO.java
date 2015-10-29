@@ -16,4 +16,5 @@ public interface LivroDAO {
     public void adicionar(Livro l);
     public List<Livro> listarLivros();
     public void atualizarLivro(Livro l);
+    public Livro procurarPorISBN(String isbn);
 }

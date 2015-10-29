@@ -36,7 +36,7 @@ public class UILivro {
                         break;
                     case UILivroMenu.OP_ATUALIZAR:
                         atualizarLivro();
-                        break;    
+                        break;
                     case UILivroMenu.OP_EXCLUIR:
                         //mostrarClientes();
                         break;
@@ -69,26 +69,28 @@ public class UILivro {
     }
 
     private void mostrarLivros() {
-        for (Livro l:livroS.listarLivros()){
+        for (Livro l : livroS.listarLivros()) {
             System.out.println("----------");
-            System.out.println("ISBN: "+l.getISBN());
-            System.out.println("Titulo: "+l.getNome());
-            System.out.println("Autores: "+l.getAutores());
-            System.out.println("Editora: "+l.getEditora());
-            System.out.println("Ano lançamento: "+l.getAno());
+            System.out.println("ISBN: " + l.getISBN());
+            System.out.println("Titulo: " + l.getNome());
+            System.out.println("Autores: " + l.getAutores());
+            System.out.println("Editora: " + l.getEditora());
+            System.out.println("Ano lançamento: " + l.getAno());
         }
     }
 
     private void atualizarLivro() {
-        mostrarLivros();
-        System.out.println("------");
-        System.out.println("Informe ISBN e dados a serem atualizados:");
-        String ISBN = Console.scanString("ISBN: ");
-        String nome = Console.scanString("Nome: ");
-        String autores = Console.scanString("Autores: ");
-        String editora = Console.scanString("Editora: ");
-        int ano = Console.scanInt("Ano: ");
-        livroS.atualizarLivro(new Livro(ISBN, nome, autores, editora, ano));
+        String isbn = Console.scanString("Informe o ISBN: ");
+        if (livroS.procurarPorISBN(isbn) == null) {
+            System.out.println("Não da dados com esse ISBN");
+        } else {
+            System.out.println("----------");
+            System.out.println("Informe os dados a serem atualizados:");
+            String nome = Console.scanString("Nome: ");
+            String autores = Console.scanString("Autores: ");
+            String editora = Console.scanString("Editora: ");
+            int ano = Console.scanInt("Ano: ");
+            livroS.atualizarLivro(new Livro(isbn, nome, autores, editora, ano));
+        }
     }
-
 }

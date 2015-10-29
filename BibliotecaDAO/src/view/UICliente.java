@@ -71,7 +71,7 @@ public class UICliente {
             System.out.println("Não da dados com essa matricula");
         } else {
             System.out.println("----------");
-            System.out.println("Informe matricula e dados a serem atualizados:");
+            System.out.println("Informe os dados a serem atualizados:");
             String nome = Console.scanString("Nome: ");
             String telefone = Console.scanString("Telefone: ");
             clienteS.atualizarCliente(new Cliente(mat, nome, telefone));
