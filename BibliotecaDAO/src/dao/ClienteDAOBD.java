@@ -18,7 +18,7 @@ import model.Cliente;
 
 /**
  *
- * @author 771400163
+ * @author Jair Ferraz
  */
 public class ClienteDAOBD implements ClienteDAO {
 
@@ -35,6 +35,8 @@ public class ClienteDAOBD implements ClienteDAO {
             comando.setString(3, c.getTelefone());
 
             comando.executeUpdate();
+            
+            System.out.println("Cliente cadastrado com sucesso!!!");
 
             fechar();
         } catch (SQLException ex) {
@@ -67,6 +69,10 @@ public class ClienteDAOBD implements ClienteDAO {
         return listaClientes;
     }
 
+    /**
+     *
+     * @param c
+     */
     @Override
     public void atualizarCliente(Cliente c) {
         try {
@@ -75,8 +81,9 @@ public class ClienteDAOBD implements ClienteDAO {
             comando.setInt(3, c.getMatricula());
             comando.setString(1, c.getNome());
             comando.setString(2, c.getTelefone());
-
             comando.executeUpdate();
+            
+            System.out.println("Cliente atualizado com sucesso!!!");
 
             fechar();
         } catch (SQLException ex) {
@@ -103,6 +110,22 @@ public class ClienteDAOBD implements ClienteDAO {
             Logger.getLogger(ClienteDAOBD.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
+    }
+    
+    @Override
+    public void excluirCliente(Cliente c) {
+        try {
+            String sql = "delete from clientes where matricula=?";
+            conectar(sql);
+            comando.setInt(1, c.getMatricula());
+            comando.executeUpdate();
+            
+            System.out.println("Cliente exluido com sucesso!!!");
+
+            fechar();
+        } catch (SQLException ex) {
+            Logger.getLogger(ClienteDAOBD.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     public void conectar(String sql) {

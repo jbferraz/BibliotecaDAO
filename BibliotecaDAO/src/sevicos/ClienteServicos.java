@@ -26,4 +26,7 @@ public class ClienteServicos {
     public Cliente procurarPorMatricula(int mat) {
         return new ClienteDAOBD().procurarPorMatricula(mat);
     }
+    public void excluirCliente(Cliente c){
+        new ClienteDAOBD().excluirCliente(c);
+    }
 }

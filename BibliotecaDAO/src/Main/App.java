@@ -7,6 +7,6 @@ import view.UIPrincipal;
  */
 public class App {
     public static void main(String[] args) {
-        new UIPrincipal().executar();                
+        new UIPrincipal().executar();
     } 
 }

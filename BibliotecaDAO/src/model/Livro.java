@@ -17,27 +17,27 @@ public class Livro {
     }
 
     public Livro(String ISBN, String nome, String autores, String editora, int ano) {
-        this.ISBN = ISBN;
-        this.nome = nome;
-        this.autores = autores;
-        this.editora = editora;
+        this.ISBN = ISBN.toUpperCase();
+        this.nome = nome.toUpperCase();
+        this.autores = autores.toUpperCase();
+        this.editora = editora.toUpperCase();
         this.ano = ano;
     }
 
     public void setISBN(String ISBN) {
-        this.ISBN = ISBN;
+        this.ISBN = ISBN.toUpperCase();
     }
 
     public void setNome(String nome) {
-        this.nome = nome;
+        this.nome = nome.toUpperCase();
     }
 
     public void setAutores(String autores) {
-        this.autores = autores;
+        this.autores = autores.toUpperCase();
     }
 
     public void setEditora(String editora) {
-        this.editora = editora;
+        this.editora = editora.toUpperCase();
     }
 
     public void setAno(int ano) {

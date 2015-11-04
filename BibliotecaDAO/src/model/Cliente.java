@@ -14,7 +14,7 @@ public class Cliente {
 
     public Cliente(int matricula, String nome, String telefone) {
         this.matricula = matricula;
-        this.nome = nome;
+        this.nome = nome.toUpperCase();
         this.telefone = telefone;
     }
 
@@ -23,7 +23,7 @@ public class Cliente {
     }
 
     public void setNome(String nome) {
-        this.nome = nome;
+        this.nome = nome.toUpperCase();
     }
 
     public void setTelefone(String telefone) {

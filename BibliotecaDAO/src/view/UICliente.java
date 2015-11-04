@@ -5,6 +5,7 @@ import view.menu.UIClienteMenu;
 import java.util.InputMismatchException;
 import model.Cliente;
 import sevicos.ClienteServicos;
+import util.Validador;
 
 public class UICliente {
 
@@ -28,7 +29,7 @@ public class UICliente {
                         atualizarCliente();
                         break;
                     case UIClienteMenu.OP_EXCLUIR:
-
+                        excluirCliente();
                         break;
                     case UIClienteMenu.OP_LISTAR:
                         mostrarClientes();
@@ -51,9 +52,13 @@ public class UICliente {
 
     public void cadastrarCliente() {
         int matricula = Console.scanInt("Matricula: ");
-        String nome = Console.scanString("Nome: ");
+        if (clienteS.procurarPorMatricula(matricula) != null) {
+            System.out.println("Cliente já cadastrado!!!");
+        }else{
+        String nome = Validador.removerAcentos(Console.scanString("Nome: "));
         String telefone = Console.scanString("Telefone: ");
         clienteS.addCliente(new Cliente(matricula, nome, telefone));
+        }
     }
 
     public void mostrarClientes() {
@@ -75,6 +80,15 @@ public class UICliente {
             String nome = Console.scanString("Nome: ");
             String telefone = Console.scanString("Telefone: ");
             clienteS.atualizarCliente(new Cliente(mat, nome, telefone));
+        }
+    }
+
+    private void excluirCliente() {
+        int mat = Console.scanInt("informe a matricula: ");
+        if (clienteS.procurarPorMatricula(mat) == null) {
+            System.out.println("Não da dados com essa matricula");
+        }else{
+            clienteS.excluirCliente(new Cliente(mat, "", ""));
         }
     }
 }

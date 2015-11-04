@@ -17,4 +17,5 @@ public interface ClienteDAO {
     public List<Cliente> listarCliente();
     public void atualizarCliente(Cliente c);
     public Cliente procurarPorMatricula(int mat);
+    public void excluirCliente(Cliente C);
 }
