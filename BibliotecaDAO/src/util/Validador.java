@@ -15,6 +15,10 @@ public class Validador {
     public static boolean validarCadastro(String c) {
         return c.matches("[^\\ ][a-zA-Z0-9\\ ]{1,100}");
     }
+    
+     public static boolean validarCadastroFone(String c) {
+        return c.matches("[^\\ ][0-9\\ ]{1,10}");
+    }
 
     public static String removerAcentos(String c) {
         c = c.replaceAll("[ÂÀÁÄÃ]", "A");

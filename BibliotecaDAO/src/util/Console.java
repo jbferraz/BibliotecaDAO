@@ -16,7 +16,7 @@ public class Console {
     public static String scanString(Object out)
 	{
 		System.out.print(out);
-		Scanner scanner = new Scanner (System.in);
+		Scanner scanner = new Scanner (System.in, "latin1");
 		return(scanner.nextLine());
 	}
 	

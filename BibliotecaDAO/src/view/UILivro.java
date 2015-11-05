@@ -9,14 +9,13 @@ import java.util.InputMismatchException;
 import model.Livro;
 import sevicos.LivroServicos;
 import util.Console;
-import view.menu.UIClienteMenu;
 import view.menu.UILivroMenu;
 
 /**
  *
  * @author Jair Ferraz
  */
-public class UILivro {
+public class UILivro {    
 
     private LivroServicos livroS;
 
@@ -65,6 +64,7 @@ public class UILivro {
         String autores = Console.scanString("Autores: ");
         String editora = Console.scanString("Editora: ");
         int ano = Console.scanInt("Ano: ");
+        
         livroS.addLivro(new Livro(ISBN, nome, autores, editora, ano));
     }
 

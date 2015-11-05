@@ -54,10 +54,18 @@ public class UICliente {
         int matricula = Console.scanInt("Matricula: ");
         if (clienteS.procurarPorMatricula(matricula) != null) {
             System.out.println("Cliente já cadastrado!!!");
-        }else{
-        String nome = Validador.removerAcentos(Console.scanString("Nome: "));
-        String telefone = Console.scanString("Telefone: ");
-        clienteS.addCliente(new Cliente(matricula, nome, telefone));
+        } else {
+            String nome = Validador.removerAcentos(Console.scanString("Nome: "));
+            if (Validador.validarCadastro(nome) && nome != " ") {
+                String telefone = Console.scanString("Telefone: ");
+                if (Validador.validarCadastroFone(telefone) && telefone!=" "){
+                    clienteS.addCliente(new Cliente(matricula, nome, telefone));
+                }else{
+                    System.err.print("Caracter invalido no telefone\n");
+                }
+            }else{
+                System.err.print("Caracter invalido no nome.\n");
+            }
         }
     }
 
@@ -73,7 +81,7 @@ public class UICliente {
     private void atualizarCliente() {
         int mat = Console.scanInt("informe a matricula: ");
         if (clienteS.procurarPorMatricula(mat) == null) {
-            System.out.println("Não da dados com essa matricula");
+            System.out.println("Não ha dados com essa matricula");
         } else {
             System.out.println("----------");
             System.out.println("Informe os dados a serem atualizados:");
@@ -86,8 +94,8 @@ public class UICliente {
     private void excluirCliente() {
         int mat = Console.scanInt("informe a matricula: ");
         if (clienteS.procurarPorMatricula(mat) == null) {
-            System.out.println("Não da dados com essa matricula");
-        }else{
+            System.out.println("Não ha dados com essa matricula");
+        } else {
             clienteS.excluirCliente(new Cliente(mat, "", ""));
         }
     }
