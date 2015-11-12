@@ -52,7 +52,8 @@ select * from devolucoes
 insert into exemplares values
     (1,1,10,10),
     (2,2,10,10),
-    (3,5,10,10);
+    (3,3,10,10),
+    (4,4,10,10);
 
 insert into retiradas values
     (1,123,'2015-11-12');
@@ -70,7 +71,7 @@ CREATE  or REPLACE FUNCTION itens_retiradas_gatilho()
          RETURNS TRIGGER AS $itens_retiradas_gatilho$
     BEGIN
 	IF (TG_OP = 'INSERT') THEN
-		UPDATE exemplares set exempDisponiveis=(OLD.exempDisponiveis+NEW.qtd) where idLivro=NEW.idLivro;
+		UPDATE exemplares set exempDisponiveis=(exempDisponiveis-NEW.qtd) where idLivro=NEW.idLivro;
 		RETURN NEW;
 	End if;
 	IF (TG_OP = 'UPDATE') THEN
@@ -78,7 +79,7 @@ CREATE  or REPLACE FUNCTION itens_retiradas_gatilho()
 		RETURN NEW;
 	end if;
 	IF (TG_OP = 'DELETE') THEN
-		UPDATE exemplares set exempDisponiveis=(exempDisponiveis-OLD.qtd) where idLivro=OLD.idLivro;
+		UPDATE exemplares set exempDisponiveis=(exempDisponiveis+OLD.qtd) where idLivro=OLD.idLivro;
 		RETURN OLD;
 	END IF;
         RETURN NULL;
@@ -96,7 +97,7 @@ CREATE  or REPLACE FUNCTION devolucoes_gatilho()
          RETURNS TRIGGER AS $devolucoes_gatilho$
     BEGIN
 	IF (TG_OP = 'INSERT') THEN
-		UPDATE exemplares set exempDisponiveis=(OLD.exempDisponiveis+NEW.qtd) where idLivro=NEW.idLivro;
+		UPDATE exemplares set exempDisponiveis=(exempDisponiveis+NEW.qtd) where idLivro=NEW.idLivro;
 		RETURN NEW;
 	End if;
 	IF (TG_OP = 'UPDATE') THEN
@@ -104,7 +105,7 @@ CREATE  or REPLACE FUNCTION devolucoes_gatilho()
 		RETURN NEW;
 	end if;
 	IF (TG_OP = 'DELETE') THEN
-		UPDATE exemplares set exempDisponiveis=(exempDisponiveis+OLD.qtd) where idLivro=OLD.idLivro;
+		UPDATE exemplares set exempDisponiveis=(exempDisponiveis-OLD.qtd) where idLivro=OLD.idLivro;
 		RETURN OLD;
 	END IF;
         RETURN NULL;
