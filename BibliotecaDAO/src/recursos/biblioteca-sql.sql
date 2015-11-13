@@ -13,7 +13,7 @@ create table livros (
 
 create table exemplares (
         id serial primary key,
-        idLivro int References livros(id),
+        idLivro int References livros(id) on delete cascade,
         exemplares int check(exemplares>0),
         exempDisponiveis int check(exempDisponiveis>=0));
 
@@ -41,6 +41,7 @@ select * from livros
 select * from clientes 
 
 select * from exemplares
+drop table exemplares
 
 select * from retiradas
 

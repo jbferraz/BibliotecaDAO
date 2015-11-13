@@ -118,7 +118,7 @@ public class LivroDAOBD implements LivroDAO{
     @Override
     public void excluirLivro(Livro l) {
         try {
-            String sql = "delete from livros wehre isbn='?'";
+            String sql = "delete from livros where isbn=?";
             conectar(sql);
             comando.setString(1, l.getISBN());
             comando.executeUpdate();
