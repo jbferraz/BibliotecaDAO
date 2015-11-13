@@ -37,7 +37,7 @@ public class UILivro {
                         atualizarLivro();
                         break;
                     case UILivroMenu.OP_EXCLUIR:
-                        //mostrarClientes();
+                        excluirLivro();
                         break;
                     case UILivroMenu.OP_LISTAR:
                         mostrarLivros();
@@ -91,6 +91,21 @@ public class UILivro {
             String editora = Console.scanString("Editora: ");
             int ano = Console.scanInt("Ano: ");
             livroS.atualizarLivro(new Livro(isbn, nome, autores, editora, ano));
+        }
+    }
+
+    private void excluirLivro() {
+        String isbn=Console.scanString("Informe a ISBN: ");
+        if (livroS.procurarPorISBN(isbn)==null){
+            System.out.println("Não ha dados com esse ISBN");
+        }else{
+            int ano=livroS.procurarPorISBN(isbn).getAno();
+            try {
+                livroS.excluirLivro(new Livro(isbn, "", "", "", ano));
+            } catch (Exception e) {
+                System.out.println("Livro não pode ser exclído!");
+            }
+
         }
     }
 }

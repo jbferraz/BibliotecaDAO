@@ -115,6 +115,22 @@ public class LivroDAOBD implements LivroDAO{
         return null;
     }
     
+    @Override
+    public void excluirLivro(Livro l) {
+        try {
+            String sql = "delete from livros wehre isbn='?'";
+            conectar(sql);
+            comando.setString(1, l.getISBN());
+            comando.executeUpdate();
+            
+            System.out.println("Livro exluido com sucesso!!!");
+            
+            fechar();
+        } catch (SQLException ex) {
+            Logger.getLogger(LivroDAOBD.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
     public void conectar(String sql) {
 
         try {

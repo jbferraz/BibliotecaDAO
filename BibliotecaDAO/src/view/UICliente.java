@@ -92,7 +92,7 @@ public class UICliente {
     }
 
     private void excluirCliente() {
-        int mat = Console.scanInt("informe a matricula: ");
+        int mat = Console.scanInt("Informe a matricula: ");
         if (clienteS.procurarPorMatricula(mat) == null) {
             System.out.println("Não ha dados com essa matricula");
         } else {

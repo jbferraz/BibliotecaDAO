@@ -26,4 +26,7 @@ public class LivroServicos {
     public Livro procurarPorISBN(String isbn){
         return new LivroDAOBD().procurarPorISBN(isbn);
     }
+    public void excluirLivro(Livro l){
+        new LivroDAOBD().excluirLivro(l);
+    }
 }
