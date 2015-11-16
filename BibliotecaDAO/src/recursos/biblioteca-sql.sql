@@ -65,6 +65,7 @@ insert into itensRet values
 insert into devolucoes values
     (1,1,'2015-11-13',1,1);
 
+insert into exemplares (idLivro,exemplares,exempDisponiveis) values ((select max(id) from livros),10,10);
 
 ----Function & Trigger
 --trigger pra controle de retiradas nos exemplares

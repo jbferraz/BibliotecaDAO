@@ -64,8 +64,9 @@ public class UILivro {
         String autores = Console.scanString("Autores: ");
         String editora = Console.scanString("Editora: ");
         int ano = Console.scanInt("Ano: ");
+        int quant=Console.scanInt("Nº de exemplares: ");
         
-        livroS.addLivro(new Livro(ISBN, nome, autores, editora, ano));
+        livroS.addLivro(new Livro(ISBN, nome, autores, editora, ano),quant);
     }
 
     private void mostrarLivros() {

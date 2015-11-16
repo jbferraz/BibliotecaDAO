@@ -10,10 +10,10 @@ import model.Livro;
 
 /**
  *
- * @author 771400163
+ * @author Jair Ferraz
  */
 public interface LivroDAO {
-    public void adicionar(Livro l);
+    public void adicionar(Livro l,int quant);
     public List<Livro> listarLivros();
     public void atualizarLivro(Livro l);
     public Livro procurarPorISBN(String isbn);

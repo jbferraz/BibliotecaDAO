@@ -14,8 +14,8 @@ import model.Livro;
  * @author Jair Ferraz
  */
 public class LivroServicos {
-    public void addLivro(Livro l){
-        new LivroDAOBD().adicionar(l);
+    public void addLivro(Livro l,int quant){
+        new LivroDAOBD().adicionar(l,quant);
     }
     public List<Livro> listarLivros(){
         return new LivroDAOBD().listarLivros();
