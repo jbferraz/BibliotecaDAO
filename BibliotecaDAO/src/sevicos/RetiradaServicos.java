@@ -13,16 +13,16 @@ public class RetiradaServicos {
     public void addRetirada(Retirada r){
         new RetiradaDAOBD().adicionar(r);
     }
-    public List<Retirada> listarClientes(){
-        return new RetiradaDAOBD().listarCliente();
+    public List<Retirada> listar(){
+        return new RetiradaDAOBD().listar();
     }
-    public void atualizarCliente(Retirada r){
-        new RetiradaDAOBD().atualizarCliente(r);
+    public void atualizar(Retirada r){
+        new RetiradaDAOBD().atualizar(r);
     }
-    public Retirada procurarPorMatricula(int mat) {
-        return new RetiradaDAOBD().procurarPorMatricula(mat);
+    public Retirada procurarPorIdRet(int idRet) {
+        return new RetiradaDAOBD().procurarPorIdRet(idRet);
     }
-    public void excluirCliente(Retirada r){
-        new RetiradaDAOBD().excluirCliente(r);
+    public void excluir(Retirada r){
+        new RetiradaDAOBD().excluir(r);
     }
 }

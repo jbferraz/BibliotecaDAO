@@ -14,8 +14,8 @@ import model.Retirada;
  */
 public interface RetiradaDAO {
     public void adicionar(Retirada r);
-    public List<Retirada> listarCliente();
-    public void atualizarCliente(Retirada r);
-    public Retirada procurarPorMatricula(int idRet);
-    public void excluirCliente(Retirada r);
+    public List<Retirada> listar();
+    public void atualizar(Retirada r);
+    public Retirada procurarPorIdRet(int idRet);
+    public void excluir(Retirada r);
 }

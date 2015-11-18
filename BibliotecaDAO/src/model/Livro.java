@@ -7,13 +7,22 @@ package model;
 
 /**
  *
- * @author 771400163
+ * @author Jair Ferraz
  */
 public class Livro {
     private String ISBN, nome, autores, editora;
-    private int ano;
+    private int ano, idLivro;
 
     public Livro() {
+    }
+
+    public Livro(String ISBN, String nome, String autores, String editora, int ano, int idLivro) {
+        this.ISBN = ISBN;
+        this.nome = nome;
+        this.autores = autores;
+        this.editora = editora;
+        this.ano = ano;
+        this.idLivro = idLivro;
     }
 
     public Livro(String ISBN, String nome, String autores, String editora, int ano) {
@@ -44,6 +53,10 @@ public class Livro {
         this.ano = ano;
     }
 
+    public void setIdLivro(int idLivro) {
+        this.idLivro = idLivro;
+    }
+
     public String getISBN() {
         return ISBN;
     }
@@ -62,6 +75,10 @@ public class Livro {
 
     public int getAno() {
         return ano;
+    }
+
+    public int getIdLivro() {
+        return idLivro;
     }
 
 }

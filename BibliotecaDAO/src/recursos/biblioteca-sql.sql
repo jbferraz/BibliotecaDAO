@@ -49,6 +49,8 @@ select * from itensRet
 
 select * from devolucoes
 
+select exempDisponiveis from exemplares where idLivro=3 and exempDisponiveis<=exemplares
+
 select * from pg_tables where schemaname='public'
 
 ----Inserts

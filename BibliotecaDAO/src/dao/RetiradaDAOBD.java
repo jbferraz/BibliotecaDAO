@@ -24,7 +24,7 @@ public class RetiradaDAOBD implements RetiradaDAO{
     @Override
     public void adicionar(Retirada r) {
         try {
-            String sql = "insert into clientes (matricula, dtRet) VALUES(?,?)";
+            String sql = "insert into retiradas (matricula, dtRet) VALUES(?,?)";
             conectar(sql);
             String dateStr=r.getData();
             try {
@@ -33,11 +33,10 @@ public class RetiradaDAOBD implements RetiradaDAO{
                 comando.setDate(2, data);
 
                 comando.executeUpdate();
+                
             } catch (ParseException ex) {
                 Logger.getLogger(RetiradaDAOBD.class.getName()).log(Level.SEVERE, null, ex);
             }
-            
-            
             System.out.println("Retirada cadastrado com sucesso!!!");
 
             fechar();
@@ -47,22 +46,22 @@ public class RetiradaDAOBD implements RetiradaDAO{
     }
 
     @Override
-    public List<Retirada> listarCliente() {
+    public List<Retirada> listar() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void atualizarCliente(Retirada r) {
+    public void atualizar(Retirada r) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public Retirada procurarPorMatricula(int idRet) {
+    public Retirada procurarPorIdRet(int idRet) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void excluirCliente(Retirada r) {
+    public void excluir(Retirada r) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
@@ -72,12 +71,11 @@ public class RetiradaDAOBD implements RetiradaDAO{
             conexao = ConnectionFactory.getConnection();
             comando = conexao.prepareStatement(sql);
         } catch (SQLException ex) {
-            Logger.getLogger(ClienteDAOBD.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(RetiradaDAOBD.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
     public void fechar() {
-
         try {
             if (comando != null) {
                 comando.close();
@@ -85,10 +83,8 @@ public class RetiradaDAOBD implements RetiradaDAO{
             if (conexao != null) {
                 conexao.close();
             }
-
         } catch (SQLException ex) {
-            Logger.getLogger(ClienteDAOBD.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(RetiradaDAOBD.class.getName()).log(Level.SEVERE, null, ex);
         }
-
     }
 }
