@@ -12,7 +12,7 @@ package view.menu;
 public class UIMenuPrincipal {
     public static final int OP_Menu_CRUDLivros = 1;
     public static final int OP_Menu_CRUDClientes = 2;
-    public static final int OP_Menu_CRUDMovimentacoes = 3;
+    public static final int OP_Menu_CRUDRetirada = 3;
     public static final int OP_Menu_RetLivros = 4;
     public static final int OP_Menu_DevLivros = 5;
     public static final int OP_Menu_Relatorios = 6;
@@ -22,8 +22,8 @@ public class UIMenuPrincipal {
         System.out.println("\n.: Biblioteca - Menu :.\n"
                 + "1 - Cadastro de Livros\n"
                 + "2 - Cadastro de Clientes\n"
-                + "3 - Cadastro de Movimentações\n"
-                + "4 - Retirada de Livro\n"
+                + "3 - Cadastro de Retirada\n"
+                + "4 - ??? de Livro\n"
                 + "5 - Devolução de Livro\n"
                 + "6 - Relatórios\n"
                 + "0 - Sair da Aplicação"

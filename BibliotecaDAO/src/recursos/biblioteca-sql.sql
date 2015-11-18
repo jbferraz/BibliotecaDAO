@@ -49,6 +49,8 @@ select * from itensRet
 
 select * from devolucoes
 
+select * from pg_tables where schemaname='public'
+
 ----Inserts
 insert into exemplares values
     (1,1,10,10),

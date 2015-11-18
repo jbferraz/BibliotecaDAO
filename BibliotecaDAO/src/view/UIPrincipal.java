@@ -27,7 +27,8 @@ public class UIPrincipal {
                         new UICliente().executar();
                         //new UICliente(listaClientes).executar();
                         break;
-                    case UIMenuPrincipal.OP_Menu_RetLivros:
+                    case UIMenuPrincipal.OP_Menu_CRUDRetirada:
+                        new UIRetirada().executar();
                         //new UIvoo(listaAvioes, listaVoos).executar();
                         break;
                     case UIMenuPrincipal.OP_Menu_DevLivros:
