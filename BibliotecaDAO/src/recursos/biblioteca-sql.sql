@@ -51,7 +51,14 @@ select * from itensRet
 
 select * from devolucoes
 
-select exempDisponiveis from exemplares where idLivro=3 and exempDisponiveis<=exemplares
+--retorna disp de livro
+select exempDisponiveis from exemplares where idLivro=123321 and exempDisponiveis<=exemplares
+
+--mostra itens de retiradas
+select * from itensRet where idRet=1
+
+--::relatórios::--
+--
 
 select * from pg_tables where schemaname='public'
 

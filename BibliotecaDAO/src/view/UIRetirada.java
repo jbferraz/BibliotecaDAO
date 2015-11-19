@@ -86,6 +86,7 @@ public class UIRetirada {
                 if (livroS.procurarPorISBN(isbn) == null) {
                     System.out.println("Livro não encontrado!");
                 } else {
+                    System.out.println("Livro selecionado: "+livroS.procurarPorISBN(isbn).getNome());
                     int idLivro = livroS.procurarPorISBN(isbn).getIdLivro();
                     int id = retiradaS.procurarPorIdRet().getIdRet();
                     quant = Console.scanInt("Informe quant. de livros: ");
