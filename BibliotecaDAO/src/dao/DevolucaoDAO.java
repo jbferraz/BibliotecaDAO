@@ -12,6 +12,6 @@ public interface DevolucaoDAO {
     public void adicionar(Devolucao d);
     public List<Devolucao> listar();
     public void atualizar(Devolucao d);
-    public Devolucao procurarPorIdRet();
+    public Devolucao procurarPorIdDev(int idDev);
     public void excluir(Devolucao d);
 }

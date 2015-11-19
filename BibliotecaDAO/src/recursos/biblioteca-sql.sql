@@ -30,7 +30,7 @@ create table itensRet(
 
 create table devolucoes(
         idDev serial primary key,
-        idRet int References retiradas(idRet),
+        idItensRet int References itensRet(idItensRet),
         dtDev date,
         idLivro int References livros(id),
         qtd int check(qtd>0));
@@ -56,6 +56,9 @@ select exempDisponiveis from exemplares where idLivro=123321 and exempDisponivei
 
 --mostra itens de retiradas
 select * from itensRet where idRet=1
+
+--mostra itensRet
+select * from itensRet as iR, retiradas as r, clientes as c where iR.idRet=r.idRet and r.matricula=c.matricula and c.matricula=123
 
 --::relatórios::--
 --

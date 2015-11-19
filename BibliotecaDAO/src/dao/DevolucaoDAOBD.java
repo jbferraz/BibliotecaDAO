@@ -5,6 +5,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
@@ -25,19 +26,15 @@ public class DevolucaoDAOBD implements DevolucaoDAO {
     public void adicionar(Devolucao d) {
         try {
             try {
-                String sql = "insert into devolucoes (idRet, dtDev,idLivro,qtd) VALUES(?,?,?,?)";
+                String sql = "insert into devolucoes (idItensRet, dtDev,idLivro,qtd) VALUES(?,?,?,?)";
                 conectar(sql);
-                comando.setInt(1, d.getIdRet());
-                String dataStr = d.getDtDev();
-                Date data;
-                data = util.DateUtil.stringToDate(dataStr);
-                java.sql.Date dataSQL = (java.sql.Date) data;
-                comando.setDate(2, (java.sql.Date) data);
-                
-                //comando.setInt(3, x);
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                Date date = sdf.parse(d.getDtDev()); 
+                java.sql.Date dataSQL = (java.sql.Date) date;
+                comando.setInt(1, d.getI().getIdItensRet());
+                comando.setDate(2, dataSQL);
+                comando.setInt(3, d.getL().getIdLivro());
                 comando.setInt(4, d.getQuant());
-                //comando.setInt(1, d.getCli().getMatricula());
-                //comando.setDate(2, dataSQL);
                 comando.executeUpdate();
 
                 fechar();
@@ -60,7 +57,7 @@ public class DevolucaoDAOBD implements DevolucaoDAO {
     }
 
     @Override
-    public Devolucao procurarPorIdRet() {
+    public Devolucao procurarPorIdDev(int idDev) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

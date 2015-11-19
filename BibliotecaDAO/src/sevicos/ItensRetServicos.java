@@ -1,24 +1,19 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package sevicos;
 
 import dao.ItensRetDAOBD;
 import java.util.List;
 import model.ItensRet;
-import model.Livro;
 
 /**
  *
- * @author marcela
+ * @author Jair Ferraz
  */
 public class ItensRetServicos {
     public void addRetirada(ItensRet iR){
         new ItensRetDAOBD().adicionar(iR);
     }
-    public List<ItensRet> listarClientes(){
+    public List<ItensRet> listarItensRet(){
         return new ItensRetDAOBD().listar();
     }
     public void atualizar(ItensRet iR){

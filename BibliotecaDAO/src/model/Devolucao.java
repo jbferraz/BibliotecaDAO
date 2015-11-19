@@ -1,41 +1,36 @@
 
 package model;
 
-import java.util.Date;
-
 /**
  *
  * @author Jair Ferraz
  */
 public class Devolucao {
-    private int idDev, idRet,quant;
+    private int idDev, quant;
     private String dtDev;
+    private ItensRet i;
     private Livro l;
 
     public Devolucao() {
     }
 
-    public Devolucao(int idDev, int idRet, int quant, String dtDev, Livro l) {
+    public Devolucao(int idDev, int quant, String dtDev, ItensRet i, Livro l) {
         this.idDev = idDev;
-        this.idRet = idRet;
         this.quant = quant;
         this.dtDev = dtDev;
+        this.i = i;
         this.l = l;
     }
 
-    public Devolucao(int idRet, int quant, String dtDev, Livro l) {
-        this.idRet = idRet;
+    public Devolucao(int quant, String dtDev, ItensRet i, Livro l) {
         this.quant = quant;
         this.dtDev = dtDev;
+        this.i = i;
         this.l = l;
     }
 
     public void setIdDev(int idDev) {
         this.idDev = idDev;
-    }
-
-    public void setIdRet(int idRet) {
-        this.idRet = idRet;
     }
 
     public void setQuant(int quant) {
@@ -46,16 +41,16 @@ public class Devolucao {
         this.dtDev = dtDev;
     }
 
+    public void setI(ItensRet i) {
+        this.i = i;
+    }
+
     public void setL(Livro l) {
         this.l = l;
     }
 
     public int getIdDev() {
         return idDev;
-    }
-
-    public int getIdRet() {
-        return idRet;
     }
 
     public int getQuant() {
@@ -66,9 +61,12 @@ public class Devolucao {
         return dtDev;
     }
 
+    public ItensRet getI() {
+        return i;
+    }
+
     public Livro getL() {
         return l;
     }
-    
     
 }
