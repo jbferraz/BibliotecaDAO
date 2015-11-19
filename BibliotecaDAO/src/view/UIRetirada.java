@@ -87,16 +87,17 @@ public class UIRetirada {
                     System.out.println("Livro não encontrado!");
                 } else {
                     int idLivro = livroS.procurarPorISBN(isbn).getIdLivro();
-                    if (itensRetS.verificaExempDisp(idLivro) > 0) {
-                        int id = retiradaS.procurarPorIdRet().getIdRet();
-                        quant = Console.scanInt("Informe quant. de livros: ");
+                    int id = retiradaS.procurarPorIdRet().getIdRet();
+                    quant = Console.scanInt("Informe quant. de livros: ");
+                    int dispLivro=itensRetS.verificaExempDisp(idLivro);
+                    if (dispLivro > quant) {
                         itensRetS.addRetirada(new ItensRet(idLivro, id, quant));
-                    }else{
-                        System.out.println("Livro escolhido não esta disponivel!");
+                        cont++;
+                    } else {
+                        System.out.println("Nâo tem "+quant+" livros disponiveis!\nDisponibilidade atual: "+dispLivro);
                     }
-                    cont++;
                     if (cont <= 3) {
-                        op = Console.scanInt("Quer retirar mais " + (3 - cont) + " livro, se sim\n digite 1 ou 0 pra finalizar: ");
+                        op = Console.scanInt("Ainda pode retirar " + (3 - cont) + " livro, se sim\n digite 1 ou 0 pra finalizar: ");
                     } else {
                         op = 0;
                     }
