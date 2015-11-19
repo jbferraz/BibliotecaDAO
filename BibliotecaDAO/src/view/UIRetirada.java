@@ -3,11 +3,9 @@ package view;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.InputMismatchException;
 import model.Cliente;
 import model.ItensRet;
-import model.Livro;
 import model.Retirada;
 import sevicos.ClienteServicos;
 import sevicos.ItensRetServicos;
@@ -76,9 +74,8 @@ public class UIRetirada {
             System.out.println("Cliente não existe");
         } else {
             Cliente cli = clienteS.procurarPorMatricula(mat);
-            DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-            GregorianCalendar calendar = new GregorianCalendar();
-            Date date = calendar.getTime();
+            DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            Date date = new Date(System.currentTimeMillis());
             String data = dateFormat.format(date);
             retiradaS.addRetirada(new Retirada(cli, data));
             //cadastra itens de retirada
@@ -88,10 +85,9 @@ public class UIRetirada {
                     System.out.println("Livro não encontrado!");
                 } else {
                     int idLivro = livroS.procurarPorISBN(isbn).getIdLivro();
-                    Retirada r = new Retirada();
-                    idRet= r.getIdRet();
+                    int id=retiradaS.procurarPorIdRet().getIdRet();
                     quant=Console.scanInt("Informe quant. de livros: ");
-                    itensRetS.addRetirada(new ItensRet(idLivro, idRet, quant));
+                    itensRetS.addRetirada(new ItensRet(idLivro, id, quant));
                     //itensRetS.addItensRet(new itensRet(????????));
                     cont++;
                     if (cont <= 3) {

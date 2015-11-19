@@ -19,8 +19,8 @@ public class RetiradaServicos {
     public void atualizar(Retirada r){
         new RetiradaDAOBD().atualizar(r);
     }
-    public Retirada procurarPorIdRet(int idRet) {
-        return new RetiradaDAOBD().procurarPorIdRet(idRet);
+    public Retirada procurarPorIdRet() {
+        return new RetiradaDAOBD().procurarPorIdRet();
     }
     public void excluir(Retirada r){
         new RetiradaDAOBD().excluir(r);

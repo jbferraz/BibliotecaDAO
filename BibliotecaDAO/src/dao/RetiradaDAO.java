@@ -16,6 +16,6 @@ public interface RetiradaDAO {
     public void adicionar(Retirada r);
     public List<Retirada> listar();
     public void atualizar(Retirada r);
-    public Retirada procurarPorIdRet(int idRet);
+    public Retirada procurarPorIdRet();
     public void excluir(Retirada r);
 }

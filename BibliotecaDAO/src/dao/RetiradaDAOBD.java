@@ -5,11 +5,12 @@ import banco.ConnectionFactory;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.ParseException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import model.Cliente;
 import model.Retirada;
 
 /**
@@ -26,18 +27,10 @@ public class RetiradaDAOBD implements RetiradaDAO{
         try {
             String sql = "insert into retiradas (matricula, dtRet) VALUES(?,?)";
             conectar(sql);
-            String dateStr=r.getData();
-            try {
-                java.util.Date data= util.DateUtil.stringToDate(dateStr);
-                comando.setInt(1, r.getCli().getMatricula());
-                comando.setDate(2, (Date) data);
-
-                comando.executeUpdate();
-                
-            } catch (ParseException ex) {
-                Logger.getLogger(RetiradaDAOBD.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            System.out.println("Retirada cadastrado com sucesso!!!");
+            java.sql.Date dataSQL = new Date(System.currentTimeMillis());
+            comando.setInt(1, r.getCli().getMatricula());
+            comando.setDate(2, dataSQL);
+            comando.executeUpdate();
 
             fechar();
         } catch (SQLException ex) {
@@ -56,8 +49,25 @@ public class RetiradaDAOBD implements RetiradaDAO{
     }
 
     @Override
-    public Retirada procurarPorIdRet(int idRet) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Retirada procurarPorIdRet() {
+        try {
+            String sql = "select * from retiradas where idRet>=(select max(idRet) from retiradas)";
+            conectar(sql);
+            ResultSet resultado = comando.executeQuery();
+            if (resultado.next()){
+                int id=resultado.getInt("idRet");
+                java.sql.Date dataSQL=resultado.getDate("dtRet", null);
+                String data=util.DateUtil.dateToString(dataSQL);
+                int mat=resultado.getInt("matricula");
+                Cliente c=new Cliente(mat, "", "");
+                Retirada r=new Retirada(id, c, data);
+                return r;
+            }
+            fechar();
+        } catch (SQLException ex) {
+            Logger.getLogger(RetiradaDAOBD.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
     }
 
     @Override

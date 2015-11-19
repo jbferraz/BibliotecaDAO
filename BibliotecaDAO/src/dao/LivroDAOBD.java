@@ -46,10 +46,10 @@ public class LivroDAOBD implements LivroDAO {
             conectar(sql);
             comando.setInt(1, quant);
             comando.setInt(2, quant);
-            
+
             comando.executeUpdate();
             fechar();
-            
+
         } catch (SQLException ex) {
             Logger.getLogger(LivroDAOBD.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -110,12 +110,13 @@ public class LivroDAOBD implements LivroDAO {
             comando.setString(1, isbn);
             ResultSet resultado = comando.executeQuery();
             if (resultado.next()) {
+                int idLivro = resultado.getInt("id");
                 String nome = resultado.getString("nome");
                 String autores = resultado.getString("autores");
                 String editora = resultado.getString("editora");
                 int ano = resultado.getInt("ano");
 
-                Livro l = new Livro(isbn, nome, autores, editora, ano);
+                Livro l = new Livro(isbn, nome, autores, editora, ano, idLivro);
                 return l;
             }
             fechar();
