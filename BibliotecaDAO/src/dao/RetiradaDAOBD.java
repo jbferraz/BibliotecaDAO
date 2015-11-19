@@ -28,9 +28,9 @@ public class RetiradaDAOBD implements RetiradaDAO{
             conectar(sql);
             String dateStr=r.getData();
             try {
-                Date data=(Date) util.DateUtil.stringToDate(dateStr);
+                java.util.Date data= util.DateUtil.stringToDate(dateStr);
                 comando.setInt(1, r.getCli().getMatricula());
-                comando.setDate(2, data);
+                comando.setDate(2, (Date) data);
 
                 comando.executeUpdate();
                 
@@ -66,7 +66,6 @@ public class RetiradaDAOBD implements RetiradaDAO{
     }
     
     public void conectar(String sql) {
-
         try {
             conexao = ConnectionFactory.getConnection();
             comando = conexao.prepareStatement(sql);

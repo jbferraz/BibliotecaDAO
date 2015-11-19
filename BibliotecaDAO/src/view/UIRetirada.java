@@ -6,9 +6,11 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.InputMismatchException;
 import model.Cliente;
+import model.ItensRet;
 import model.Livro;
 import model.Retirada;
 import sevicos.ClienteServicos;
+import sevicos.ItensRetServicos;
 import sevicos.LivroServicos;
 import sevicos.RetiradaServicos;
 import util.Console;
@@ -21,6 +23,7 @@ import view.menu.UIRetiradaMenu;
 public class UIRetirada {
 
     private RetiradaServicos retiradaS;
+    private ItensRetServicos itensRetS;
     private ClienteServicos clienteS;
     private LivroServicos livroS;
 
@@ -66,7 +69,6 @@ public class UIRetirada {
     }
 
     private void cadastrarRetirada() {
-        UILivro l = new UILivro();
         int op = 10, cont = 0;
         int idRet=0,quant=0;
         int mat = Console.scanInt("Informe matricula: ");
@@ -79,16 +81,17 @@ public class UIRetirada {
             Date date = calendar.getTime();
             String data = dateFormat.format(date);
             retiradaS.addRetirada(new Retirada(cli, data));
+            //cadastra itens de retirada
             do {
                 String isbn = Console.scanString("Informe o ISBN: ");
                 if (livroS.procurarPorISBN(isbn) == null) {
                     System.out.println("Livro não encontrado!");
                 } else {
-                    Livro livro = livroS.procurarPorISBN(isbn);
+                    int idLivro = livroS.procurarPorISBN(isbn).getIdLivro();
                     Retirada r = new Retirada();
                     idRet= r.getIdRet();
                     quant=Console.scanInt("Informe quant. de livros: ");
-                    
+                    itensRetS.addRetirada(new ItensRet(idLivro, idRet, quant));
                     //itensRetS.addItensRet(new itensRet(????????));
                     cont++;
                     if (cont <= 3) {
@@ -97,10 +100,8 @@ public class UIRetirada {
                         op = 0;
                     }
                 }
-
             } while (op != 0);
         }
-
     }
 
     private void atualizarRetirada() {
