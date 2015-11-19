@@ -10,7 +10,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.ParseException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -63,10 +62,8 @@ public class ItensRetDAOBD implements ItensRetDAO{
     }
     
     @Override
-    public int verificaExempDisp(Livro l) {
-        int idLivro=0;
+    public int verificaExempDisp(int idLivro) {
         try {
-            idLivro=l.getIdLivro();
             String sql = "select * from exemplares where idLivro=? and exempDisponiveis<=exemplares";
             conectar(sql);
             comando.setInt(1, idLivro);

@@ -69,13 +69,13 @@ public class UIRetirada {
 
     private void cadastrarRetirada() {
         int op = 10, cont = 0;
-        int idRet=0,quant=0;
+        int idRet = 0, quant = 0;
         int mat = Console.scanInt("Informe matricula: ");
         if (clienteS.procurarPorMatricula(mat) == null) {
             System.out.println("Cliente não existe");
         } else {
             Cliente cli = clienteS.procurarPorMatricula(mat);
-            System.out.println("Cliente selecionado: "+cli.getNome());
+            System.out.println("Cliente selecionado: " + cli.getNome());
             DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
             Date date = new Date(System.currentTimeMillis());
             String data = dateFormat.format(date);
@@ -87,13 +87,16 @@ public class UIRetirada {
                     System.out.println("Livro não encontrado!");
                 } else {
                     int idLivro = livroS.procurarPorISBN(isbn).getIdLivro();
-                    int id=retiradaS.procurarPorIdRet().getIdRet();
-                    quant=Console.scanInt("Informe quant. de livros: ");
-                    itensRetS.addRetirada(new ItensRet(idLivro, id, quant));
-                    //itensRetS.addItensRet(new itensRet(????????));
+                    if (itensRetS.verificaExempDisp(idLivro) > 0) {
+                        int id = retiradaS.procurarPorIdRet().getIdRet();
+                        quant = Console.scanInt("Informe quant. de livros: ");
+                        itensRetS.addRetirada(new ItensRet(idLivro, id, quant));
+                    }else{
+                        System.out.println("Livro escolhido não esta disponivel!");
+                    }
                     cont++;
                     if (cont <= 3) {
-                        op = Console.scanInt("Quer retirar mais " + (3-cont) + " livro, se sim\n digite 1 ou 0 pra finalizar: ");
+                        op = Console.scanInt("Quer retirar mais " + (3 - cont) + " livro, se sim\n digite 1 ou 0 pra finalizar: ");
                     } else {
                         op = 0;
                     }

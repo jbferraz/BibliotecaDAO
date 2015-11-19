@@ -8,6 +8,7 @@ package sevicos;
 import dao.ItensRetDAOBD;
 import java.util.List;
 import model.ItensRet;
+import model.Livro;
 
 /**
  *
@@ -28,5 +29,8 @@ public class ItensRetServicos {
     }
     public void excluir(ItensRet iR){
         new ItensRetDAOBD().excluir(iR);
+    }
+    public int verificaExempDisp(int idLivro){
+        return new ItensRetDAOBD().verificaExempDisp(idLivro);
     }
 }

@@ -19,5 +19,5 @@ public interface ItensRetDAO {
     public void atualizar(ItensRet iR);
     public ItensRet procurarPorIdItemRet(int idItemRet);
     public void excluir(ItensRet iR);
-    public int verificaExempDisp(Livro l);
+    public int verificaExempDisp(int idLivro);
 }
