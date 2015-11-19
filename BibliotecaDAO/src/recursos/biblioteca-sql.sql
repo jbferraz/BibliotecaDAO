@@ -55,6 +55,13 @@ select exempDisponiveis from exemplares where idLivro=3 and exempDisponiveis<=ex
 
 select * from pg_tables where schemaname='public'
 
+drop table itensret;
+drop table devolucoes;
+drop table exemplares;
+drop table livros;
+drop table retiradas;
+drop table clientes;
+
 ----Inserts
 insert into exemplares values
     (1,1,10,10),
@@ -124,6 +131,3 @@ CREATE TRIGGER devolucoes_gatilho BEFORE INSERT OR UPDATE OR DELETE ON devolucoe
     FOR EACH ROW EXECUTE PROCEDURE devolucoes_gatilho();
 
 ----verificar a possibilidade de criar triger pra alimentar as movimentacoes nos livros a cada retirada e devolução.
-
-
-

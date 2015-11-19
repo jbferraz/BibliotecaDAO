@@ -29,6 +29,7 @@ public class UIRetirada {
         retiradaS = new RetiradaServicos();
         clienteS = new ClienteServicos();
         livroS = new LivroServicos();
+        itensRetS = new ItensRetServicos();
     }
 
     public void executar() {
@@ -74,6 +75,7 @@ public class UIRetirada {
             System.out.println("Cliente não existe");
         } else {
             Cliente cli = clienteS.procurarPorMatricula(mat);
+            System.out.println("Cliente selecionado: "+cli.getNome());
             DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
             Date date = new Date(System.currentTimeMillis());
             String data = dateFormat.format(date);
@@ -91,7 +93,7 @@ public class UIRetirada {
                     //itensRetS.addItensRet(new itensRet(????????));
                     cont++;
                     if (cont <= 3) {
-                        op = Console.scanInt("Quer retirar mais " + cont + ", se sim/n digite 1 ou 0 pra finalizar");
+                        op = Console.scanInt("Quer retirar mais " + (3-cont) + " livro, se sim\n digite 1 ou 0 pra finalizar: ");
                     } else {
                         op = 0;
                     }
