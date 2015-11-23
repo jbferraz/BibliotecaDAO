@@ -91,7 +91,7 @@ public class UIRetirada {
                     int id = retiradaS.procurarPorIdRet().getIdRet();
                     quant = Console.scanInt("Informe quant. de livros: ");
                     int dispLivro=itensRetS.verificaExempDisp(idLivro);
-                    if (dispLivro > quant) {
+                    if (dispLivro >= quant) {
                         itensRetS.addRetirada(new ItensRet(idLivro, id, quant));
                         cont++;
                     } else {

@@ -26,7 +26,8 @@ create table itensRet(
         idItensRet serial primary key,
         idLivro int References livros(id),
         idRet int References retiradas(idRet),
-        qtd int check(qtd>0));
+        qtd int check(qtd>0),
+        status varchar(1));
 
 create table devolucoes(
         idDev serial primary key,
@@ -36,6 +37,7 @@ create table devolucoes(
         qtd int check(qtd>0));
 
 ----Testes
+
 select * from retiradas where idRet>=(select max(idRet) from retiradas);
 
 select * from livros
@@ -59,6 +61,15 @@ select * from itensRet where idRet=1
 
 --mostra itensRet
 select * from itensRet as iR, retiradas as r, clientes as c where iR.idRet=r.idRet and r.matricula=c.matricula and c.matricula=123
+
+--devolucoes
+--valida devolucoes
+select idItensRet, idLivro, itensRet.idRet as idRet, qtd, status from itensRet, retiradas, clientes 
+    where itensRet.idRet=retiradas.idRet 
+        and retiradas.matricula=clientes.matricula 
+        and clientes.matricula=123 
+        and itensRet.status='A'
+        and itensRet.idLivro=1;
 
 --::relatórios::--
 --
@@ -123,6 +134,7 @@ CREATE  or REPLACE FUNCTION devolucoes_gatilho()
     BEGIN
 	IF (TG_OP = 'INSERT') THEN
 		UPDATE exemplares set exempDisponiveis=(exempDisponiveis+NEW.qtd) where idLivro=NEW.idLivro;
+                UPDATE itensRet set status='F' where idItensRet=NEW.idItensRet; 
 		RETURN NEW;
 	End if;
 	IF (TG_OP = 'UPDATE') THEN
@@ -131,6 +143,7 @@ CREATE  or REPLACE FUNCTION devolucoes_gatilho()
 	end if;
 	IF (TG_OP = 'DELETE') THEN
 		UPDATE exemplares set exempDisponiveis=(exempDisponiveis-OLD.qtd) where idLivro=OLD.idLivro;
+                UPDATE itensRet set status='A' where idItensRet=NEW.idItensRet; 
 		RETURN OLD;
 	END IF;
         RETURN NULL;

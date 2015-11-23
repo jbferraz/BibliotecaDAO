@@ -10,21 +10,24 @@ public class ItensRet {
     private int idLivro;
     private int idRet;
     private int quant;
+    private String status;
 
     public ItensRet() {
     }
 
-    public ItensRet(int idItensRet, int idLivro, int idRet, int quant) {
+    public ItensRet(int idItensRet, int idLivro, int idRet, int quant, String status) {
         this.idItensRet = idItensRet;
         this.idLivro = idLivro;
         this.idRet = idRet;
         this.quant = quant;
+        this.status = status;
     }
 
     public ItensRet(int idLivro, int idRet, int quant) {
         this.idLivro = idLivro;
         this.idRet = idRet;
         this.quant = quant;
+        this.status = "A";
     }
 
     public void setIdItensRet(int idItensRet) {
@@ -43,6 +46,10 @@ public class ItensRet {
         this.quant = quant;
     }
 
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
     public int getIdItensRet() {
         return idItensRet;
     }
@@ -57,6 +64,10 @@ public class ItensRet {
 
     public int getQuant() {
         return quant;
+    }
+
+    public String getStatus() {
+        return status;
     }
     
 }

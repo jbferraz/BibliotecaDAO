@@ -64,14 +64,18 @@ public class UIDevolucao {
         //idItensRet, dtDev,idLivro,qtd
         int mat = Console.scanInt("Informe o matricula: ");
         Cliente c = clienteS.procurarPorMatricula(mat);
-        if (c==null){
+        if (c == null) {
             System.out.println("Cliente não fez retirada!");
+        } else {
+            String isbn = Console.scanString("Informe ISBN a ser devolvido: ");
+            Livro l = livroS.procurarPorISBN(isbn);
+            if (l == null) {
+                System.out.println("Livro não foi retirado!");
+            }else{
+                
+            }
         }
-        String isbn = Console.scanString("Informe ISBN a ser devolvido: ");
-        Livro l = livroS.procurarPorISBN(isbn);
-        if (l==null){
-            System.out.println("Livro não foi retirado!");
-        }
+
     }
 
     private void atualizar() {

@@ -16,9 +16,9 @@ public class ConnectionFactory {
     private final static String BD = "biblioteca";
     private final static String URL = "jdbc:postgresql://"+HOST+":"+PORT+"/"+BD;
     private final static String USUARIO = "postgres";
-    //private final static String SENHA = "jferraz";
+    private final static String SENHA = "jferraz";
     //private final static String SENHA = "senac2015";
-    private final static String SENHA = "senacrs";
+    //private final static String SENHA = "senacrs";
 
     
     public static Connection getConnection(){

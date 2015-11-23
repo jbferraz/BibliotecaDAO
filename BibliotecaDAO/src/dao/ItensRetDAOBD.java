@@ -28,7 +28,7 @@ public class ItensRetDAOBD implements ItensRetDAO{
     public void adicionar(ItensRet iR) {
         try {
             
-            String sql = "insert into itensRet (idLivro, idRet, qtd) VALUES(?,?,?)";
+            String sql = "insert into itensRet (idLivro, idRet, qtd, status) VALUES(?,?,?,'A')";
             conectar(sql);
             comando.setInt(1, iR.getIdLivro());
             comando.setInt(2, iR.getIdRet());
