@@ -41,25 +41,27 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jMIListarLivros = new javax.swing.JMenuItem();
         jMIExcluirLivros = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        jMenuItem2 = new javax.swing.JMenuItem();
-        jMenuItem3 = new javax.swing.JMenuItem();
-        jMenuItem4 = new javax.swing.JMenuItem();
+        jMICadastroClientes = new javax.swing.JMenuItem();
+        jMIAlteraClientes = new javax.swing.JMenuItem();
+        jMIAListarClientes = new javax.swing.JMenuItem();
+        jMIExcluirClientes = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
         jMenu5 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        AreaDeTrabalho.setPreferredSize(new java.awt.Dimension(1024, 768));
+
         javax.swing.GroupLayout AreaDeTrabalhoLayout = new javax.swing.GroupLayout(AreaDeTrabalho);
         AreaDeTrabalho.setLayout(AreaDeTrabalhoLayout);
         AreaDeTrabalhoLayout.setHorizontalGroup(
             AreaDeTrabalhoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 800, Short.MAX_VALUE)
+            .addGap(0, 1024, Short.MAX_VALUE)
         );
         AreaDeTrabalhoLayout.setVerticalGroup(
             AreaDeTrabalhoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 600, Short.MAX_VALUE)
+            .addGap(0, 768, Short.MAX_VALUE)
         );
 
         mArquivo.setMnemonic('A');
@@ -84,6 +86,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jMenu1.add(jMICadastroLivros);
 
         jMIAlterarLivros.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_A, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
+        jMIAlterarLivros.setMnemonic('A');
         jMIAlterarLivros.setText("Alterar");
         jMIAlterarLivros.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -93,6 +96,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jMenu1.add(jMIAlterarLivros);
 
         jMIListarLivros.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_L, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
+        jMIListarLivros.setMnemonic('L');
         jMIListarLivros.setText("Listar");
         jMIListarLivros.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -102,30 +106,55 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jMenu1.add(jMIListarLivros);
 
         jMIExcluirLivros.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_E, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
+        jMIExcluirLivros.setMnemonic('E');
         jMIExcluirLivros.setText("Excluir");
         jMenu1.add(jMIExcluirLivros);
 
         mArquivo.add(jMenu1);
 
+        jMenu3.setMnemonic('C');
         jMenu3.setText("Clientes");
 
-        jMenuItem1.setText("jMenuItem1");
-        jMenu3.add(jMenuItem1);
+        jMICadastroClientes.setMnemonic('C');
+        jMICadastroClientes.setText("Cadastro");
+        jMICadastroClientes.setToolTipText("");
+        jMICadastroClientes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMICadastroClientesActionPerformed(evt);
+            }
+        });
+        jMenu3.add(jMICadastroClientes);
 
-        jMenuItem2.setText("jMenuItem2");
-        jMenu3.add(jMenuItem2);
+        jMIAlteraClientes.setMnemonic('A');
+        jMIAlteraClientes.setText("Alterar");
+        jMIAlteraClientes.setMaximumSize(new java.awt.Dimension(80000, 60000));
+        jMIAlteraClientes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMIAlteraClientesActionPerformed(evt);
+            }
+        });
+        jMenu3.add(jMIAlteraClientes);
 
-        jMenuItem3.setText("jMenuItem3");
-        jMenu3.add(jMenuItem3);
+        jMIAListarClientes.setMnemonic('L');
+        jMIAListarClientes.setText("Listar");
+        jMenu3.add(jMIAListarClientes);
 
-        jMenuItem4.setText("jMenuItem4");
-        jMenu3.add(jMenuItem4);
+        jMIExcluirClientes.setMnemonic('E');
+        jMIExcluirClientes.setText("Excluir");
+        jMIExcluirClientes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMIExcluirClientesActionPerformed(evt);
+            }
+        });
+        jMenu3.add(jMIExcluirClientes);
 
         mArquivo.add(jMenu3);
 
+        jMenu4.setMnemonic('R');
         jMenu4.setText("Retiradas");
         mArquivo.add(jMenu4);
 
+        jMenu5.setMnemonic('D');
         jMenu5.setText("Devoluções");
         mArquivo.add(jMenu5);
 
@@ -170,6 +199,18 @@ public class TelaPrincipal extends javax.swing.JFrame {
         alterarCadastroLivro();
     }//GEN-LAST:event_jMIAlterarLivrosActionPerformed
 
+    private void jMIExcluirClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMIExcluirClientesActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMIExcluirClientesActionPerformed
+
+    private void jMICadastroClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMICadastroClientesActionPerformed
+        abrirCadastrarCliente();
+    }//GEN-LAST:event_jMICadastroClientesActionPerformed
+
+    private void jMIAlteraClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMIAlteraClientesActionPerformed
+        alterarCadastroCliente();
+    }//GEN-LAST:event_jMIAlteraClientesActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -206,8 +247,12 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDesktopPane AreaDeTrabalho;
+    private javax.swing.JMenuItem jMIAListarClientes;
+    private javax.swing.JMenuItem jMIAlteraClientes;
     private javax.swing.JMenuItem jMIAlterarLivros;
+    private javax.swing.JMenuItem jMICadastroClientes;
     private javax.swing.JMenuItem jMICadastroLivros;
+    private javax.swing.JMenuItem jMIExcluirClientes;
     private javax.swing.JMenuItem jMIExcluirLivros;
     private javax.swing.JMenuItem jMIListarLivros;
     private javax.swing.JMenu jMenu1;
@@ -216,10 +261,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenu jMenu5;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem3;
-    private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenu mArquivo;
     // End of variables declaration//GEN-END:variables
 
@@ -234,6 +275,22 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private void alterarCadastroLivro() {
         int tipo=2;
         CadastroLivro cl= new CadastroLivro(tipo);
+        AreaDeTrabalho.add(cl);
+        cl.setVisible(true);
+        cl.setTitle("Editar");
+    }
+    
+    private void abrirCadastrarCliente() {
+        int tipo=1;
+        CadastroCliente cl= new CadastroCliente(tipo);
+        AreaDeTrabalho.add(cl);
+        cl.setVisible(true);
+        cl.setTitle("Cadastrar");
+    }
+    
+    private void alterarCadastroCliente() {
+        int tipo=2;
+        CadastroCliente cl= new CadastroCliente(tipo);
         AreaDeTrabalho.add(cl);
         cl.setVisible(true);
         cl.setTitle("Editar");

@@ -70,7 +70,7 @@ public class CadastroLivro extends javax.swing.JInternalFrame {
         setClosable(true);
         setIconifiable(true);
         setTitle("Cadastro de Livro");
-        setPreferredSize(new java.awt.Dimension(413, 312));
+        setPreferredSize(new java.awt.Dimension(312, 290));
         setRequestFocusEnabled(false);
         setVerifyInputWhenFocusTarget(false);
 
@@ -116,9 +116,9 @@ public class CadastroLivro extends javax.swing.JInternalFrame {
                             .addComponent(jtfExemplares, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addComponent(jtfAutores)
-                                .addComponent(jtfNome)
                                 .addComponent(jtfEditora, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jtfAno, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addComponent(jtfAno, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jtfNome, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -181,7 +181,7 @@ public class CadastroLivro extends javax.swing.JInternalFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 10, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -207,8 +207,23 @@ public class CadastroLivro extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jbCadastrarActionPerformed
 
     private void jtfISBNFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtfISBNFocusLost
+        String isbn = jtfISBN.getText();
+        if (tipo==1) {
+            if (livroS.procurarPorISBN(isbn) != null) {
+                JOptionPane.showMessageDialog(null, "ISBN já cadastrado!");
+                String nome = livroS.procurarPorISBN(isbn).getNome();
+                String autores = livroS.procurarPorISBN(isbn).getAutores();
+                String editora = livroS.procurarPorISBN(isbn).getEditora();
+                int ano = livroS.procurarPorISBN(isbn).getAno();
+                jtfNome.setText(nome);
+                jtfAutores.setText(autores);
+                jtfEditora.setText(editora);
+                jtfAno.setText(Integer.toString(ano));
+                tipo=2;
+                manipulaJanela();
+            }
+        }
         if (tipo == 2) {
-            String isbn = jtfISBN.getText();
             if (livroS.procurarPorISBN(isbn) == null) {
                 JOptionPane.showMessageDialog(null, "Não da dados com esse ISBN!");
             } else {
