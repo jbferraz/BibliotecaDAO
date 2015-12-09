@@ -37,6 +37,8 @@ create table devolucoes(
         qtd int check(qtd>0));
 
 ----Testes
+select e.id,e.idlivro,e.exemplares,e.exempDisponiveis,l.isbn
+    from exemplares e, livros l where e.idLivro=l.id;
 
 select * from retiradas where idRet>=(select max(idRet) from retiradas);
 

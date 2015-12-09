@@ -7,6 +7,7 @@ package dao;
 
 import java.util.List;
 import model.Livro;
+import model.Exemplares;
 
 /**
  *
@@ -18,4 +19,5 @@ public interface LivroDAO {
     public void atualizarLivro(Livro l);
     public Livro procurarPorISBN(String isbn);
     public void excluirLivro(Livro l);
+    public List<Exemplares> listarExempLivros();
 }

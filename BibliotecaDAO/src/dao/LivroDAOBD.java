@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import model.Exemplares;
 import model.Livro;
 
 /**
@@ -81,6 +82,33 @@ public class LivroDAOBD implements LivroDAO {
             Logger.getLogger(LivroDAOBD.class.getName()).log(Level.SEVERE, null, ex);
         }
         return listaLivros;
+    }
+    
+    @Override
+    public List<Exemplares> listarExempLivros() {
+        List<Exemplares> listaExempLivros = new ArrayList<>();
+        try {
+            String sql = "select e.id,e.idlivro,e.exemplares,e.exempDisponiveis,l.isbn from exemplares e, livros l where e.idLivro=l.id";
+            conectar(sql);
+            ResultSet resultado;
+            resultado = comando.executeQuery();
+
+            while (resultado.next()) {
+                int id = resultado.getInt("id");
+                int idLivro = resultado.getInt("idLivro");
+                int exemp = resultado.getInt("exemp");
+                int exempDisp = resultado.getInt("exempDisp");
+                String isbn = resultado.getString("isbn");
+                
+                Exemplares e = new Exemplares(id, procurarPorISBN(isbn), exemp, exempDisp);
+                listaExempLivros.add(e);
+
+            }//fim while
+            fechar();
+        } catch (SQLException ex) {
+            Logger.getLogger(LivroDAOBD.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return listaExempLivros;
     }
 
     @Override

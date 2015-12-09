@@ -47,6 +47,7 @@ public class ClienteDAOBD implements ClienteDAO {
     @Override
     public List<Cliente> listarCliente() {
         List<Cliente> listaClientes = new ArrayList<>();
+        
         try {
             String sql = "select * from clientes";
             conectar(sql);

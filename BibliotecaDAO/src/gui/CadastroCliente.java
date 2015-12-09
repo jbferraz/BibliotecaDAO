@@ -5,6 +5,8 @@
  */
 package gui;
 
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JOptionPane;
 import model.Cliente;
 import sevicos.ClienteServicos;
@@ -37,8 +39,19 @@ public class CadastroCliente extends javax.swing.JInternalFrame {
     public void manipulaJanela() {
         if (tipo == 1) {
             jbCadastrar.setText("Cadastrar");
-        } else if (tipo == 2) {
+            jbAnterior.setVisible(false);
+            jBProximo.setVisible(false);
+        }
+        if (tipo == 2) {
             jbCadastrar.setText("Editar");
+            jbAnterior.setVisible(false);
+            jBProximo.setVisible(false);
+        }
+        if (tipo == 3) {
+            jbCadastrar.setText("Editar");
+            jbAnterior.setVisible(true);
+            jBProximo.setVisible(true);
+            exibirPrimCliente();
         }
     }
 
@@ -60,6 +73,8 @@ public class CadastroCliente extends javax.swing.JInternalFrame {
         jtfMatricula = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
         jbCadastrar = new javax.swing.JButton();
+        jbAnterior = new javax.swing.JButton();
+        jBProximo = new javax.swing.JButton();
 
         setClosable(true);
         setIconifiable(true);
@@ -73,6 +88,12 @@ public class CadastroCliente extends javax.swing.JInternalFrame {
         jLabel2.setText("Nome:");
 
         jLabel1.setText("Matricula:");
+
+        jtfMatricula.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jtfMatriculaFocusLost(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -117,6 +138,16 @@ public class CadastroCliente extends javax.swing.JInternalFrame {
             }
         });
 
+        jbAnterior.setMnemonic('A');
+        jbAnterior.setText("Anterior");
+        jbAnterior.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbAnteriorActionPerformed(evt);
+            }
+        });
+
+        jBProximo.setText("Próximo");
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -124,12 +155,19 @@ public class CadastroCliente extends javax.swing.JInternalFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jbCadastrar)
-                .addContainerGap(190, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jbAnterior)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jBProximo)
+                .addContainerGap(32, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addComponent(jbCadastrar)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jbCadastrar)
+                    .addComponent(jbAnterior)
+                    .addComponent(jBProximo))
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
@@ -159,13 +197,14 @@ public class CadastroCliente extends javax.swing.JInternalFrame {
     private void jbCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbCadastrarActionPerformed
         if (tipo == 1) {
             cadastrarCliente();
-        } else if (tipo == 2) {
+        }
+        if (tipo == 2 || tipo == 3) {
             editarCliente();
         }
         this.dispose();
     }//GEN-LAST:event_jbCadastrarActionPerformed
 
-    private void jtfMatriculaFocusLost(java.awt.event.FocusEvent evt) {
+    private void jtfMatriculaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtfMatriculaFocusLost
         int mat = Integer.parseInt(jtfMatricula.getText());
         if (tipo == 1) {
             if (clienteS.procurarPorMatricula(mat) != null) {
@@ -188,14 +227,20 @@ public class CadastroCliente extends javax.swing.JInternalFrame {
                 jtfTelefone.setText(telefone);
             }
         }
-    }
+    }//GEN-LAST:event_jtfMatriculaFocusLost
+
+    private void jbAnteriorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbAnteriorActionPerformed
+        irAnterior();
+    }//GEN-LAST:event_jbAnteriorActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jBProximo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JButton jbAnterior;
     private javax.swing.JButton jbCadastrar;
     private javax.swing.JTextField jtfMatricula;
     private javax.swing.JTextField jtfNome;
@@ -224,6 +269,53 @@ public class CadastroCliente extends javax.swing.JInternalFrame {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Informe ano apenas digitos!");
             e.printStackTrace();
+        }
+    }
+
+    private void irAnterior() {
+        try {
+            int sz = clienteS.listarClientes().size();
+            int atual = 0;//descobrir como pegar o valor atual
+            int ant = atual-1;
+            JOptionPane.showMessageDialog(null, "atual: "+atual);
+            if (ant<0){
+                ant=0;
+                JOptionPane.showMessageDialog(null, "Não existe mais clientes");
+            }
+            
+            if (clienteS.listarClientes() == null) {
+                JOptionPane.showMessageDialog(null, "Não existe clientes cadastrados");
+            } else {
+                String mat = Integer.toString(clienteS.listarClientes().get(ant).getMatricula());
+                String nome = clienteS.listarClientes().get(ant).getNome();
+                String telefone = clienteS.listarClientes().get(ant).getTelefone();
+                jtfMatricula.setText(mat);
+                jtfNome.setText(nome);
+                jtfTelefone.setText(telefone);
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Tente Novamente!");
+            e.printStackTrace();
+        }
+    }
+
+    private void exibirPrimCliente() {
+        if (tipo == 3) {
+            try {
+                if (clienteS.listarClientes() == null) {
+                    JOptionPane.showMessageDialog(null, "Não existe clientes cadastrados");
+                } else {
+                    String mat = Integer.toString(clienteS.listarClientes().get(0).getMatricula());
+                    String nome = clienteS.listarClientes().get(0).getNome();
+                    String telefone = clienteS.listarClientes().get(0).getTelefone();
+                    jtfMatricula.setText(mat);
+                    jtfNome.setText(nome);
+                    jtfTelefone.setText(telefone);
+                }
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, "Informe ano apenas digitos!");
+                e.printStackTrace();
+            }
         }
     }
 }

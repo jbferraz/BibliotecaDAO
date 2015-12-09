@@ -97,6 +97,9 @@
                     <Property name="mnemonic" type="int" value="76"/>
                     <Property name="text" type="java.lang.String" value="Listar"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMIAListarClientesActionPerformed"/>
+                  </Events>
                 </MenuItem>
                 <MenuItem class="javax.swing.JMenuItem" name="jMIExcluirClientes">
                   <Properties>

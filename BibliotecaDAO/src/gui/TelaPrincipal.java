@@ -137,6 +137,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         jMIAListarClientes.setMnemonic('L');
         jMIAListarClientes.setText("Listar");
+        jMIAListarClientes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMIAListarClientesActionPerformed(evt);
+            }
+        });
         jMenu3.add(jMIAListarClientes);
 
         jMIExcluirClientes.setMnemonic('E');
@@ -210,6 +215,10 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private void jMIAlteraClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMIAlteraClientesActionPerformed
         alterarCadastroCliente();
     }//GEN-LAST:event_jMIAlteraClientesActionPerformed
+
+    private void jMIAListarClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMIAListarClientesActionPerformed
+        abrirListarCliente();
+    }//GEN-LAST:event_jMIAListarClientesActionPerformed
 
     /**
      * @param args the command line arguments
@@ -294,5 +303,13 @@ public class TelaPrincipal extends javax.swing.JFrame {
         AreaDeTrabalho.add(cl);
         cl.setVisible(true);
         cl.setTitle("Editar");
+    }
+    
+    private void abrirListarCliente() {
+        int tipo=3;
+        CadastroCliente cl= new CadastroCliente(tipo);
+        AreaDeTrabalho.add(cl);
+        cl.setVisible(true);
+        cl.setTitle(".: Lista :.");
     }
 }
