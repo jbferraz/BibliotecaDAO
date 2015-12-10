@@ -5,8 +5,6 @@
  */
 package gui;
 
-import java.util.ArrayList;
-import java.util.List;
 import javax.swing.JOptionPane;
 import model.Cliente;
 import sevicos.ClienteServicos;
@@ -21,6 +19,7 @@ public class CadastroCliente extends javax.swing.JInternalFrame {
      * Creates new form CadastroCliente
      */
     private int tipo;
+    private int atual = 0;
 
     public CadastroCliente() {
         clienteS = new ClienteServicos();
@@ -147,6 +146,11 @@ public class CadastroCliente extends javax.swing.JInternalFrame {
         });
 
         jBProximo.setText("Próximo");
+        jBProximo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBProximoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -230,8 +234,12 @@ public class CadastroCliente extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jtfMatriculaFocusLost
 
     private void jbAnteriorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbAnteriorActionPerformed
-        irAnterior();
+        irAnt();
     }//GEN-LAST:event_jbAnteriorActionPerformed
+
+    private void jBProximoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBProximoActionPerformed
+        irProx();
+    }//GEN-LAST:event_jBProximoActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBProximo;
@@ -272,17 +280,16 @@ public class CadastroCliente extends javax.swing.JInternalFrame {
         }
     }
 
-    private void irAnterior() {
+    private void irAnt() {
         try {
-            int sz = clienteS.listarClientes().size();
-            int atual = 0;//descobrir como pegar o valor atual
-            int ant = atual-1;
-            JOptionPane.showMessageDialog(null, "atual: "+atual);
-            if (ant<0){
-                ant=0;
+            atual--;
+            int ant = atual;
+            if (ant < 0) {
+                ant = 0;
+                atual = ant;
                 JOptionPane.showMessageDialog(null, "Não existe mais clientes");
             }
-            
+
             if (clienteS.listarClientes() == null) {
                 JOptionPane.showMessageDialog(null, "Não existe clientes cadastrados");
             } else {
@@ -299,15 +306,43 @@ public class CadastroCliente extends javax.swing.JInternalFrame {
         }
     }
 
+    private void irProx() {
+        try {
+            atual++;
+            int prox = atual;
+            int sz = clienteS.listarClientes().size();
+            sz--;
+            if (prox > sz) {
+                prox = sz;
+                atual = prox;
+                JOptionPane.showMessageDialog(null, "Não existe mais clientes");
+            }
+
+            if (clienteS.listarClientes() == null) {
+                JOptionPane.showMessageDialog(null, "Não existe clientes cadastrados");
+            } else {
+                String mat = Integer.toString(clienteS.listarClientes().get(prox).getMatricula());
+                String nome = clienteS.listarClientes().get(prox).getNome();
+                String telefone = clienteS.listarClientes().get(prox).getTelefone();
+                jtfMatricula.setText(mat);
+                jtfNome.setText(nome);
+                jtfTelefone.setText(telefone);
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Tente Novamente!");
+            e.printStackTrace();
+        }
+    }
+
     private void exibirPrimCliente() {
         if (tipo == 3) {
             try {
                 if (clienteS.listarClientes() == null) {
                     JOptionPane.showMessageDialog(null, "Não existe clientes cadastrados");
                 } else {
-                    String mat = Integer.toString(clienteS.listarClientes().get(0).getMatricula());
-                    String nome = clienteS.listarClientes().get(0).getNome();
-                    String telefone = clienteS.listarClientes().get(0).getTelefone();
+                    String mat = Integer.toString(clienteS.listarClientes().get(atual).getMatricula());
+                    String nome = clienteS.listarClientes().get(atual).getNome();
+                    String telefone = clienteS.listarClientes().get(atual).getTelefone();
                     jtfMatricula.setText(mat);
                     jtfNome.setText(nome);
                     jtfTelefone.setText(telefone);
