@@ -5,17 +5,24 @@
  */
 package gui;
 
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
+import model.Cliente;
+import sevicos.ClienteServicos;
+
 /**
  *
  * @author 771400163
  */
 public class ListaClientes extends javax.swing.JInternalFrame {
 
+    DefaultTableModel dtm = new DefaultTableModel(new Object[][]{}, new Object[]{"Matricula","Nome","Telefone"});
     /**
      * Creates new form ListaClientes
      */
     public ListaClientes() {
         initComponents();
+        alimentarTB();
     }
 
     /**
@@ -39,9 +46,6 @@ public class ListaClientes extends javax.swing.JInternalFrame {
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
                 {null, null, null}
             },
             new String [] {
@@ -56,6 +60,8 @@ public class ListaClientes extends javax.swing.JInternalFrame {
                 return canEdit [columnIndex];
             }
         });
+        jTable1.setEnabled(false);
+        jTable1.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(jTable1);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -91,4 +97,19 @@ public class ListaClientes extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
+
+    private void alimentarTB() {
+        ClienteServicos clienteS = new ClienteServicos();
+        List<Cliente> c;
+        c = clienteS.listarClientes();
+        
+        for (int i = 0; i < c.size(); i++) {
+            dtm.addRow(new Object[]{
+                String.valueOf(c.get(i).getMatricula()),
+                String.valueOf(c.get(i).getNome()),
+                String.valueOf(c.get(i).getTelefone())
+            });
+        }
+        jTable1.setModel(dtm);
+    }
 }

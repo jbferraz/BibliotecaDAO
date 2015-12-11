@@ -16,7 +16,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
      */
     public TelaPrincipal() {
         initComponents();
-//        executar();
+        executar();
     }
     
     public void executar(){
@@ -44,8 +44,10 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jMICadastroClientes = new javax.swing.JMenuItem();
         jMIAlteraClientes = new javax.swing.JMenuItem();
         jMIAListarClientes = new javax.swing.JMenuItem();
+        jMIListarTabela = new javax.swing.JMenuItem();
         jMIExcluirClientes = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
         jMenu5 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -143,6 +145,14 @@ public class TelaPrincipal extends javax.swing.JFrame {
         });
         jMenu3.add(jMIAListarClientes);
 
+        jMIListarTabela.setText("Listar/Tabela");
+        jMIListarTabela.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMIListarTabelaActionPerformed(evt);
+            }
+        });
+        jMenu3.add(jMIListarTabela);
+
         jMIExcluirClientes.setMnemonic('E');
         jMIExcluirClientes.setText("Excluir");
         jMIExcluirClientes.addActionListener(new java.awt.event.ActionListener() {
@@ -156,6 +166,21 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         jMenu4.setMnemonic('R');
         jMenu4.setText("Retiradas");
+        jMenu4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenu4ActionPerformed(evt);
+            }
+        });
+
+        jMenuItem1.setMnemonic('C');
+        jMenuItem1.setText("Cadastrar");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        jMenu4.add(jMenuItem1);
+
         mArquivo.add(jMenu4);
 
         jMenu5.setMnemonic('D');
@@ -213,6 +238,18 @@ public class TelaPrincipal extends javax.swing.JFrame {
         abrirListarCliente();
     }//GEN-LAST:event_jMIAListarClientesActionPerformed
 
+    private void jMIListarTabelaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMIListarTabelaActionPerformed
+        abrirListarTabela();
+    }//GEN-LAST:event_jMIListarTabelaActionPerformed
+
+    private void jMenu4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu4ActionPerformed
+        //
+    }//GEN-LAST:event_jMenu4ActionPerformed
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        abrirCadastrarRetirada();
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -257,11 +294,13 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMIExcluirClientes;
     private javax.swing.JMenuItem jMIExcluirLivros;
     private javax.swing.JMenuItem jMIListarLivros;
+    private javax.swing.JMenuItem jMIListarTabela;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenu jMenu5;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenu mArquivo;
     // End of variables declaration//GEN-END:variables
 
@@ -311,5 +350,19 @@ public class TelaPrincipal extends javax.swing.JFrame {
         AreaDeTrabalho.add(cl);
         cl.setVisible(true);
         cl.setTitle(".: Excluir :.");
+    }
+
+    private void abrirListarTabela() {
+        ListaClientes clTB= new ListaClientes();
+        AreaDeTrabalho.add(clTB);
+        clTB.setVisible(true);
+        clTB.setTitle(".: Listar/Tabela :.");
+    }
+
+    private void abrirCadastrarRetirada() {
+        CadastraRetirada cdRT = new CadastraRetirada();
+        AreaDeTrabalho.add(cdRT);
+        cdRT.setVisible(true);
+        cdRT.setTitle(".: Cadastrar Retirada :.");
     }
 }
