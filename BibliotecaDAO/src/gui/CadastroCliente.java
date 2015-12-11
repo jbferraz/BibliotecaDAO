@@ -52,6 +52,11 @@ public class CadastroCliente extends javax.swing.JInternalFrame {
             jBProximo.setVisible(true);
             exibirPrimCliente();
         }
+        if (tipo == 4) {
+            jbCadastrar.setText("Excluir");
+            jbAnterior.setVisible(false);
+            jBProximo.setVisible(false);
+        }
     }
 
     /**
@@ -205,6 +210,9 @@ public class CadastroCliente extends javax.swing.JInternalFrame {
         if (tipo == 2 || tipo == 3) {
             editarCliente();
         }
+        if (tipo == 4) {
+            excluirliente();
+        }
         this.dispose();
     }//GEN-LAST:event_jbCadastrarActionPerformed
 
@@ -221,7 +229,7 @@ public class CadastroCliente extends javax.swing.JInternalFrame {
                 manipulaJanela();
             }
         }
-        if (tipo == 2) {
+        if (tipo == 2 || tipo == 4) {
             if (clienteS.procurarPorMatricula(mat) == null) {
                 JOptionPane.showMessageDialog(null, "Não da dados com essa Matricula!");
             } else {
@@ -351,6 +359,28 @@ public class CadastroCliente extends javax.swing.JInternalFrame {
                 JOptionPane.showMessageDialog(null, "Informe ano apenas digitos!");
                 e.printStackTrace();
             }
+        }
+    }
+
+    private void excluirliente() {
+        try {
+            int mat = Integer.parseInt(jtfMatricula.getText());
+            String nome = jtfNome.getText();
+            String telefone = jtfTelefone.getText();
+            clienteS.atualizarCliente(new Cliente(mat, nome, telefone));
+            String[] options = new String[]{"Sim", "Não"};
+            int response = JOptionPane.showOptionDialog(null, "Deseja excluir o clientes: " + nome, "Excluir?",
+                    JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE,
+                    null, options, options[0]);
+            if (clienteS.procurarPorMatricula(mat) == null) {
+                JOptionPane.showMessageDialog(null,"Não ha dados com essa matricula");
+            }else if (response == 0) {
+                clienteS.excluirCliente(new Cliente(mat, "", ""));
+                
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Informe ano apenas digitos!");
+            e.printStackTrace();
         }
     }
 }

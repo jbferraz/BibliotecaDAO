@@ -170,18 +170,15 @@ public class TelaPrincipal extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(AreaDeTrabalho, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(AreaDeTrabalho, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(AreaDeTrabalho, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(AreaDeTrabalho, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jMICadastroLivrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMICadastroLivrosActionPerformed
@@ -201,7 +198,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMIAlterarLivrosActionPerformed
 
     private void jMIExcluirClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMIExcluirClientesActionPerformed
-        // TODO add your handling code here:
+        abrirExcluirCliente();
     }//GEN-LAST:event_jMIExcluirClientesActionPerformed
 
     private void jMICadastroClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMICadastroClientesActionPerformed
@@ -273,7 +270,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         CadastroLivro cl= new CadastroLivro(tipo);
         AreaDeTrabalho.add(cl);
         cl.setVisible(true);
-        cl.setTitle("Cadastrar");
+        cl.setTitle(".: Cadastrar :.");
     }
 
     private void alterarCadastroLivro() {
@@ -281,7 +278,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         CadastroLivro cl= new CadastroLivro(tipo);
         AreaDeTrabalho.add(cl);
         cl.setVisible(true);
-        cl.setTitle("Editar");
+        cl.setTitle(".: Editar :.");
     }
     
     private void abrirCadastrarCliente() {
@@ -289,7 +286,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         CadastroCliente cl= new CadastroCliente(tipo);
         AreaDeTrabalho.add(cl);
         cl.setVisible(true);
-        cl.setTitle("Cadastrar");
+        cl.setTitle(".: Cadastrar :.");
     }
     
     private void alterarCadastroCliente() {
@@ -297,7 +294,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         CadastroCliente cl= new CadastroCliente(tipo);
         AreaDeTrabalho.add(cl);
         cl.setVisible(true);
-        cl.setTitle("Editar");
+        cl.setTitle(".: Editar :.");
     }
     
     private void abrirListarCliente() {
@@ -306,5 +303,13 @@ public class TelaPrincipal extends javax.swing.JFrame {
         AreaDeTrabalho.add(cl);
         cl.setVisible(true);
         cl.setTitle(".: Lista :.");
+    }
+
+    private void abrirExcluirCliente() {
+        int tipo=4;
+        CadastroCliente cl= new CadastroCliente(tipo);
+        AreaDeTrabalho.add(cl);
+        cl.setVisible(true);
+        cl.setTitle(".: Excluir :.");
     }
 }
