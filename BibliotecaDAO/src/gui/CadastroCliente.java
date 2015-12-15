@@ -375,8 +375,7 @@ public class CadastroCliente extends javax.swing.JInternalFrame {
             if (clienteS.procurarPorMatricula(mat) == null) {
                 JOptionPane.showMessageDialog(null,"Não ha dados com essa matricula");
             }else if (response == 0) {
-                clienteS.excluirCliente(new Cliente(mat, "", ""));
-                
+                clienteS.excluirCliente(new Cliente(mat, "", ""));  
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Informe ano apenas digitos!");

@@ -69,7 +69,7 @@ public class UIRetirada {
 
     private void cadastrarRetirada() {
         int op = 10, cont = 0;
-        int idRet = 0, quant = 0;
+        int quant = 0;
         int mat = Console.scanInt("Informe matricula: ");
         if (clienteS.procurarPorMatricula(mat) == null) {
             System.out.println("Cliente não existe");
@@ -86,16 +86,16 @@ public class UIRetirada {
                 if (livroS.procurarPorISBN(isbn) == null) {
                     System.out.println("Livro não encontrado!");
                 } else {
-                    System.out.println("Livro selecionado: "+livroS.procurarPorISBN(isbn).getNome());
+                    System.out.println("Livro selecionado: " + livroS.procurarPorISBN(isbn).getNome());
                     int idLivro = livroS.procurarPorISBN(isbn).getIdLivro();
                     int id = retiradaS.procurarPorIdRet().getIdRet();
                     quant = Console.scanInt("Informe quant. de livros: ");
-                    int dispLivro=itensRetS.verificaExempDisp(idLivro);
+                    int dispLivro = itensRetS.verificaExempDisp(idLivro);
                     if (dispLivro >= quant) {
                         itensRetS.addRetirada(new ItensRet(idLivro, id, quant));
                         cont++;
                     } else {
-                        System.out.println("Nâo tem "+quant+" livros disponiveis!\nDisponibilidade atual: "+dispLivro);
+                        System.out.println("Nâo tem " + quant + " livros disponiveis!\nDisponibilidade atual: " + dispLivro);
                     }
                     if (cont <= 3) {
                         op = Console.scanInt("Ainda pode retirar " + (3 - cont) + " livro, se sim\n digite 1 ou 0 pra finalizar: ");

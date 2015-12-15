@@ -5,8 +5,22 @@
  */
 package gui;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+import model.Cliente;
+import model.ItensRet;
+import model.Livro;
+import model.Retirada;
 import sevicos.ClienteServicos;
+import sevicos.ItensRetServicos;
+import sevicos.LivroServicos;
+import sevicos.RetiradaServicos;
 
 /**
  *
@@ -14,14 +28,20 @@ import sevicos.ClienteServicos;
  */
 public class CadastraRetirada extends javax.swing.JInternalFrame {
 
+    DefaultTableModel dtm = new DefaultTableModel(new Object[][]{}, new Object[]{"idLivro", "ISBN", "Nome", "Autores", "Ano", "Quant"});
     /**
      * Creates new form CadastraRetirada
      */
-    
     ClienteServicos clienteS;
-    
+    RetiradaServicos retiradaS;
+    LivroServicos livroS;
+    ItensRetServicos itensRetS;
+
     public CadastraRetirada() {
         clienteS = new ClienteServicos();
+        retiradaS = new RetiradaServicos();
+        livroS = new LivroServicos();
+        itensRetS = new ItensRetServicos();
         initComponents();
     }
 
@@ -45,8 +65,10 @@ public class CadastraRetirada extends javax.swing.JInternalFrame {
         jtfISBN = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTLivro = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
+        jtLivro = new javax.swing.JTable();
+        jbCadastrar = new javax.swing.JButton();
+        jLabel6 = new javax.swing.JLabel();
+        jtfQuant = new javax.swing.JTextField();
 
         jLabel3.setText("jLabel3");
 
@@ -67,62 +89,114 @@ public class CadastraRetirada extends javax.swing.JInternalFrame {
         });
 
         jtfCliente.setEditable(false);
+        jtfCliente.setEnabled(false);
 
         jLabel4.setText("Data:");
 
-        jLabel5.setText("ISBN:");
+        jtfData.setEnabled(false);
 
-        jTLivro.setModel(new javax.swing.table.DefaultTableModel(
+        jtfISBN.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jtfISBNFocusLost(evt);
+            }
+        });
+
+        jLabel5.setText("ISBN:");
+        jLabel5.setMaximumSize(new java.awt.Dimension(30, 14));
+        jLabel5.setMinimumSize(new java.awt.Dimension(30, 14));
+        jLabel5.setPreferredSize(new java.awt.Dimension(30, 14));
+
+        jtLivro.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null}
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "ISBN", "Nome", "Autores", "Ano"
+                "IdLivro", "ISBN", "Nome", "Autores", "Ano", "Quant"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
-        jTLivro.getTableHeader().setReorderingAllowed(false);
-        jScrollPane1.setViewportView(jTLivro);
+        jtLivro.getTableHeader().setReorderingAllowed(false);
+        jScrollPane1.setViewportView(jtLivro);
+        if (jtLivro.getColumnModel().getColumnCount() > 0) {
+            jtLivro.getColumnModel().getColumn(0).setMinWidth(50);
+            jtLivro.getColumnModel().getColumn(0).setPreferredWidth(50);
+            jtLivro.getColumnModel().getColumn(0).setMaxWidth(50);
+            jtLivro.getColumnModel().getColumn(1).setMinWidth(40);
+            jtLivro.getColumnModel().getColumn(1).setPreferredWidth(80);
+            jtLivro.getColumnModel().getColumn(1).setMaxWidth(80);
+            jtLivro.getColumnModel().getColumn(2).setMinWidth(80);
+            jtLivro.getColumnModel().getColumn(2).setPreferredWidth(150);
+            jtLivro.getColumnModel().getColumn(2).setMaxWidth(150);
+            jtLivro.getColumnModel().getColumn(3).setMinWidth(80);
+            jtLivro.getColumnModel().getColumn(3).setPreferredWidth(80);
+            jtLivro.getColumnModel().getColumn(3).setMaxWidth(80);
+            jtLivro.getColumnModel().getColumn(4).setMinWidth(50);
+            jtLivro.getColumnModel().getColumn(4).setPreferredWidth(50);
+            jtLivro.getColumnModel().getColumn(4).setMaxWidth(50);
+            jtLivro.getColumnModel().getColumn(5).setMinWidth(80);
+            jtLivro.getColumnModel().getColumn(5).setPreferredWidth(80);
+            jtLivro.getColumnModel().getColumn(5).setMaxWidth(80);
+        }
 
-        jButton1.setText("Cadastrar");
+        jbCadastrar.setText("Cadastrar");
+        jbCadastrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbCadastrarActionPerformed(evt);
+            }
+        });
+
+        jLabel6.setText("Quant.:");
+
+        jtfQuant.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jtfQuantFocusGained(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addGap(10, 10, 10)
-                                        .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                    .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING)))
-                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addContainerGap()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jtfMatricula, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jtfCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(jtfISBN, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jtfData, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(55, 55, 55)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                                .addGap(10, 10, 10)
+                                                .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                            .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING)))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jtfMatricula, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jtfCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jtfData, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                        .addComponent(jtfQuant, javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jtfISBN, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(jbCadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 44, Short.MAX_VALUE)))
                 .addContainerGap())
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jButton1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -141,12 +215,16 @@ public class CadastraRetirada extends javax.swing.JInternalFrame {
                     .addComponent(jLabel4))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jtfISBN, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5))
+                    .addComponent(jtfQuant, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel6))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jtfISBN, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(31, 31, 31)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton1)
+                .addComponent(jbCadastrar)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -172,28 +250,101 @@ public class CadastraRetirada extends javax.swing.JInternalFrame {
 
     private void jtfMatriculaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtfMatriculaFocusLost
         int mat = Integer.parseInt(jtfMatricula.getText());
-            if (clienteS.procurarPorMatricula(mat) == null) {
-                JOptionPane.showMessageDialog(null, "Não da dados com essa Matricula!");
-            } else {
-                String nome = clienteS.procurarPorMatricula(mat).getNome();
-                jtfCliente.setText(nome);
-            }
+        if (clienteS.procurarPorMatricula(mat) == null) {
+            JOptionPane.showMessageDialog(null, "Cliente não existe!");
+        } else {
+            Cliente cli = clienteS.procurarPorMatricula(mat);
+            String nome = clienteS.procurarPorMatricula(mat).getNome();
+            DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            Date date = new Date(System.currentTimeMillis());
+            String data = dateFormat.format(date);
+            jtfCliente.setText(nome);
+            jtfData.setText(data);
+        }
     }//GEN-LAST:event_jtfMatriculaFocusLost
+
+    private void jbCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbCadastrarActionPerformed
+        int mat = Integer.parseInt(jtfMatricula.getText());
+        Cliente cli = clienteS.procurarPorMatricula(mat);
+        String data = jtfData.getText();
+        retiradaS.addRetirada(new Retirada(cli, data));
+        int id = retiradaS.procurarPorIdRet().getIdRet();
+        for (int i = 0; i < dtm.getRowCount(); i++) {
+            int idLivro = Integer.parseInt(String.valueOf(dtm.getValueAt(i, 0)));
+            int Quant = Integer.parseInt(String.valueOf(dtm.getValueAt(i, 5)));
+            itensRetS.addRetirada(new ItensRet(idLivro, id, Quant));
+        }
+        this.dispose();
+    }//GEN-LAST:event_jbCadastrarActionPerformed
+
+    private void jtfISBNFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtfISBNFocusLost
+        int op = 10, cont = 0, quant = 0;
+        do {
+            String isbn = jtfISBN.getText();
+            if (livroS.procurarPorISBN(isbn) == null) {
+                JOptionPane.showMessageDialog(null, "Livro não encontrado!");
+            } else {
+                int idLivro = livroS.procurarPorISBN(isbn).getIdLivro();
+                quant = Integer.parseInt(jtfQuant.getText());
+                int dispLivro = itensRetS.verificaExempDisp(idLivro);
+                if (dispLivro >= quant) {
+                    List<Livro> l = new ArrayList<>();
+                    l.add(livroS.procurarPorISBN(isbn));
+                    for (int i = 0; i < l.size(); i++) {
+                        dtm.addRow(new Object[]{
+                            String.valueOf(l.get(i).getIdLivro()),
+                            String.valueOf(l.get(i).getISBN()),
+                            String.valueOf(l.get(i).getNome()),
+                            String.valueOf(l.get(i).getAutores()),
+                            String.valueOf(l.get(i).getAno()),
+                            String.valueOf((int) quant)
+                        });
+                    }
+                    jtLivro.setModel(dtm);
+                    cont++;
+                } else {
+                    JOptionPane.showMessageDialog(null, "Nâo tem " + quant + " livros disponiveis!\nDisponibilidade atual: " + dispLivro);
+                }
+                if (cont <= 3) {
+                    String[] options = new String[]{"Sim", "Não"};
+                    int response = JOptionPane.showOptionDialog(null, "Ainda pode retirar " + (3 - cont) + " livro!", "livros",
+                            JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE,
+                            null, options, options[0]);
+                    if (response == 0) {
+                        op = 1;
+                        jtfQuant.requestFocus();
+                        return;
+                    } else {
+                        op = 0;
+                        jtfQuant.setText("");
+                        jtfISBN.setText("");
+                    }
+                }
+            }
+        } while (op != 0);
+    }//GEN-LAST:event_jtfISBNFocusLost
+
+    private void jtfQuantFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtfQuantFocusGained
+        jtfQuant.setText("");
+        jtfISBN.setText("");
+    }//GEN-LAST:event_jtfQuantFocusGained
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTLivro;
+    private javax.swing.JButton jbCadastrar;
+    private javax.swing.JTable jtLivro;
     private javax.swing.JTextField jtfCliente;
     private javax.swing.JTextField jtfData;
     private javax.swing.JTextField jtfISBN;
     private javax.swing.JTextField jtfMatricula;
+    private javax.swing.JTextField jtfQuant;
     // End of variables declaration//GEN-END:variables
 }
